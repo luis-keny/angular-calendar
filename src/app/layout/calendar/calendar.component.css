@@ -1,0 +1,45 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid var(--color-200);
+}
+
+.header__date {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header__date--controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.header__icon {
+    border-radius: 0.5rem;
+    -webkit-border-radius: 0.5rem;
+    -moz-border-radius: 0.5rem;
+    -ms-border-radius: 0.5rem;
+    -o-border-radius: 0.5rem;
+    transition: background-color .3s;
+    -webkit-transition: background-color .3s;
+    -moz-transition: background-color .3s;
+    -ms-transition: background-color .3s;
+    -o-transition: background-color .3s;
+}
+
+.header__icon:hover {
+    background-color: var(--color-200);
+}
+
+.header__icon:active {
+    background-color: var(--color-300);
+    scale: 0.95;
+}
+
+.header__icon path:last-child {
+    stroke: var(--color-600);
+}
