@@ -1,1 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("./app/shared/css/btn-custom.css");
+
+:root {
+    --color-50: #f2f5ff;
+    --color-100: #e6eaff;
+    --color-200: #d1d9ff;
+    --color-300: #acb8ff;
+    --color-400: #7e8dff;
+    --color-500: #4953ff;
+    --color-600: #2425ff;
+    --color-700: #1513ee;
+    --color-800: #110fc8;
+    --color-900: #110fa9;
+    --color-950: #06096f;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Onest Variable', sans-serif;
+    color: var(--color-950);
+}
