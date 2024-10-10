@@ -11,6 +11,7 @@
 }
 
 .select__list {
+    z-index: 800;
     list-style: none;
     position: absolute;
     top: 120%;
