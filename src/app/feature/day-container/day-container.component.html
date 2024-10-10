@@ -1,1 +1,24 @@
-<p>day-container works!</p>
+<section class="container">
+    <div #ContentDay class="content">
+        <span class="void"></span>
+        <div class="day">
+            <h5 class="day__name" [class]="isCurrentDay(customDate) ? 'active' : ''">{{ customDate.toString().split(" ")[0] }}</h5>
+            <h3 class="day__number" [class]="isCurrentDay(customDate) ?  'active' : ''">{{ customDate.getDate() }}</h3>
+            <span class="date__void"></span>
+        </div>
+    </div>
+    <div #ContentEvent class="content content--event">
+        <ul class="time">
+            @for (hour of hours; track $index) {
+                <li class="time__item">
+                    <span class="time_hour">{{ hour }}</span>
+                </li>
+            }
+        </ul>
+        <div class="event" (click)="modalOpen()">
+            <div class="event__content">
+
+            </div>
+        </div>
+    </div>
+</section>
