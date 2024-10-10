@@ -1,23 +1,67 @@
-import { Component } from '@angular/core';
-import { CalendarView } from '../../core/index-model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+
+import { CalendarView } from '../../core/index-model';
+import { DateHelper } from '../../core/index-util';
+import { UrlDateService } from '../../core/index-service';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.css'
 })
-export class CalendarComponent {
-  currentDate: Date = new Date();
+export class CalendarComponent implements OnInit, OnDestroy {
+  currentDay = new Date();
+  customDate!: Date;
+  calendarView: CalendarView = 'week';
+  urlDateSub: Subscription = new Subscription();
+  dateHelper = new DateHelper(new Date());
 
   constructor(
-    private router: Router
+    private router: Router,
+    private urlDateSrv: UrlDateService,
   ) {}
 
-  public updateViewCalendar(event: CalendarView) {
-    if(event === 'day') this.router.navigate(['calendar/day']);
-    if(event === 'week') this.router.navigate(['calendar/week']);
-    if(event === 'month') this.router.navigate(['calendar/month']);
-    if(event === 'year') this.router.navigate(['calendar/year']);
+  ngOnInit(): void {
+    this.urlDateSub = this.urlDateSrv.getDateFromUrlObservable().subscribe(date => {
+      this.customDate = date;
+      this.dateHelper.updateDate(date);
+    });
+  }
+
+  ngOnDestroy(): void {
+    if(this.urlDateSub) this.urlDateSub.unsubscribe();
+  }
+
+  private navigateByView(view: CalendarView) {
+    const { day, month, year } = this.dateHelper.getDateParts();
+    if(view === 'day') this.router.navigate(['calendar/day', year, month, day]);
+    if(view === 'week') this.router.navigate(['calendar/week', year, month, day]);
+    if(view === 'month') this.router.navigate(['calendar/month', year, month, day]);
+    if(view === 'year') this.router.navigate(['calendar/year', year, month, day]);
+  }
+
+  public updateViewCalendar(view: CalendarView) {
+    this.calendarView = view;
+    this.navigateByView(view);
+  }
+
+  public redirectCurrentDay() {
+    this.dateHelper.updateDate(this.currentDay);
+    this.navigateByView(this.calendarView);
+  }
+
+  public beforeDate() {
+    this.updateDate(-1);
+  }
+
+  public nextDate() {
+    this.updateDate(1);
+  }
+
+  private updateDate(countAdd: number) {
+    this.dateHelper.shiftDateByView(countAdd,this.calendarView);
+    this.navigateByView(this.calendarView);
   }
 }

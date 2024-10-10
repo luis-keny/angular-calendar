@@ -8,19 +8,19 @@ const routes: Routes = [
     component: CalendarComponent,
     children: [
       {
-        path: 'day',
+        path: 'day/:year/:month/:day',
         loadComponent: () => import('../../feature/day-container/day-container.component').then(m => m.DayContainerComponent)
       },
       {
-        path: 'week',
+        path: 'week/:year/:month/:day',
         loadComponent: () => import('../../feature/week-container/week-container.component').then(m => m.WeekContainerComponent)
       },
       {
-        path: 'month',
+        path: 'month/:year/:month/:day',
         loadComponent: () => import('../../feature/month-container/month-container.component').then(m => m.MonthContainerComponent)
       },
       {
-        path: 'year',
+        path: 'year/:year/:month/:day',
         loadComponent: () => import('../../feature/year-container/year-container.component').then(m => m.YearContainerComponent)
       },
       {
