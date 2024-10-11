@@ -28,8 +28,8 @@ export class DateHelper {
         this.leapYear();
     }
 
-    private leapYear() {
-        let year = this.date.getFullYear();
+    private leapYear(dateSelect?: Date) {
+        let year = dateSelect?.getFullYear() ?? this.date.getFullYear();
         let isLeapYear = (year%4==0 || year%100==0 || year%400==0);
 
         if(isLeapYear) {
@@ -44,8 +44,10 @@ export class DateHelper {
     }
     
 
-    public adjustDateByDays(count: number): Date {
-        const { day, month, year } = this.getDateParts();
+    public adjustDateByDays(count: number, dateSelected?: Date): Date {
+        let date = dateSelected ?? this.date;
+        this.leapYear(date);
+        const { day, month, year } = this.getDateParts(date);
         const currentMonthInfo = this.monthDaysMap.filter(v => v.month === month)[0];
         const nextDay = day + count;
         
@@ -129,10 +131,9 @@ export class DateHelper {
         this.updateDate(dateGenerated);
     }
 
-    public lastDayOfMonth(custom?: Date) {
-        let customDate = this.date;
-        if(custom) customDate = custom;
-        const { month } = this.getDateParts(custom);
+    public lastDayOfMonth(dateSelected?: Date) {
+        let date = dateSelected ?? this.date;
+        const { month } = this.getDateParts(date);
         const currentMonthInfo = this.monthDaysMap.filter(v => v.month === month)[0];
 
         return currentMonthInfo.maxDay;
@@ -140,11 +141,11 @@ export class DateHelper {
 
     public getWeekForDate(dateSelected?: Date): Date[] {
         let week: Date[] = [];
-        
-        if(dateSelected) this.date = dateSelected;
+        let date = dateSelected ?? this.date;
+        this.leapYear(date);
 
         for(let i = 0; i < 7; i++) {
-            let orderDay: Date = this.adjustDateByDays(i - this.date.getDay());
+            let orderDay: Date = this.adjustDateByDays(i - date.getDay(), date);
             week.push(orderDay);
         }
 
@@ -162,39 +163,43 @@ export class DateHelper {
         return weekDayNames;
     }
 
-    public getMonthForDate(dateSelected?: Date): Date[][] {
-        if(dateSelected) this.updateDate(dateSelected);
-
+    public getMonthForDate(dateSelected?: Date, minWeek?: number): Date[][] {
+        let date = dateSelected ?? this.date;
+        this.leapYear(date);
         let monthWeeks: Date[][] = [];
-        const { month, year } = this.getDateParts();
+        const { month, year } = this.getDateParts(date);
     
-        let lastDayOfMonth: number = this.lastDayOfMonth();
+        let lastDayOfMonth: number = this.lastDayOfMonth(date);
         let weekStartDate = this.buildDate(year,month,1);
         let weekEndDate: Date = weekStartDate;
+        let count = minWeek ?? 0;
     
-        this.updateDate(weekStartDate);
+        date = weekStartDate;
 
         do{
             let daysOfWeek: Date[] = this.getWeekForDate(weekStartDate);
             weekEndDate = daysOfWeek[daysOfWeek.length - 1];
-            weekStartDate = this.buildDate(year,month,weekEndDate.getDate()+1);
+            weekStartDate = this.adjustDateByDays(1, weekEndDate);
             monthWeeks.push(daysOfWeek);
+            count--;
         } while(!(
+            (
             weekEndDate.getDate() == lastDayOfMonth ||
-            weekEndDate.getMonth() > this.date.getMonth() ||
-            weekEndDate.getFullYear() > this.date.getFullYear()
+            weekEndDate.getMonth() > date.getMonth() ||
+            weekEndDate.getFullYear() > date.getFullYear()
+            ) && count<=0
         ));
 
         return monthWeeks;
     }
 
-    public getYearByDate(dateSelected: Date): Date[][][] {
+    public getYearByDate(dateSelected: Date, minWeek?: number): Date[][][] {
         let yearMonth: Date[][][] = [];
         const { year } = this.getDateParts(dateSelected);
-        
+        this.leapYear(dateSelected);
         for(let i = 0; i < 12; i ++) {
             let firstDayOfMonth = this.buildDate(year,i+1,1);
-            let month = this.getMonthForDate(firstDayOfMonth);
+            let month = this.getMonthForDate(firstDayOfMonth, minWeek);
             yearMonth.push(month);
         }
 
