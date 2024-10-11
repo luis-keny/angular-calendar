@@ -1,3 +1,9 @@
+.container {
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
 .content {
     display: grid;
     grid-template-columns: 2.25rem auto;
