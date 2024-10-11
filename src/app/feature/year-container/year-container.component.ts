@@ -26,7 +26,7 @@ export class YearContainerComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.urlDateSub = this.urlDateSrv.getDateFromUrlObservable().subscribe(date => {
-      this.calendarDates = this.dateHelper.getYearByDate(date);
+      this.calendarDates = this.dateHelper.getYearByDate(date,6);
     });
   }
 

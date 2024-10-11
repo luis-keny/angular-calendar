@@ -17,7 +17,7 @@
     width: 16rem;
     height: 14rem;
     display: grid;
-    grid-template-rows: repeat(auto-fill,1fr);
+    grid-template-rows: repeat(6,1fr);
 }
 
 .week {
