@@ -100,8 +100,9 @@ export class DateHelper {
         };
     }
 
-    public getMonthName(): string {
-        return this.months[this.date.getMonth()];
+    public getMonthName(monthNumber?: number): string {
+        const identifiedMonth = monthNumber ?? this.date.getMonth();
+        return this.months[identifiedMonth];
     }
 
     public shiftDateByView(count: number, typeView: CalendarView){
@@ -181,5 +182,18 @@ export class DateHelper {
         ));
 
         return monthWeeks;
+    }
+
+    public getYearByDate(dateSelected: Date): Date[][][] {
+        let yearMonth: Date[][][] = [];
+        const { year } = this.getDateParts(dateSelected);
+        
+        for(let i = 0; i < 12; i ++) {
+            let firstDayOfMonth = this.buildDate(year,i+1,1);
+            let month = this.getMonthForDate(firstDayOfMonth);
+            yearMonth.push(month);
+        }
+
+        return yearMonth;
     }
 }
