@@ -32,7 +32,11 @@ export class DateHelper {
         let year = this.date.getFullYear();
         let isLeapYear = (year%4==0 || year%100==0 || year%400==0);
 
-        if(isLeapYear) this.monthDaysMap[1].maxDay = 29;
+        if(isLeapYear) {
+            this.monthDaysMap[1].maxDay = 29;
+            return
+        }
+        this.monthDaysMap[1].maxDay = 28;
     }
 
     public buildDate(year: number, month: number, day: number): Date {
