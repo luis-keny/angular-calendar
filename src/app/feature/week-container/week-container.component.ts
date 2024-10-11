@@ -29,12 +29,7 @@ export class WeekContainerComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.urlDateSub = this.urlDateSrv.getDateFromUrlObservable().subscribe(date => {
-      this.customDates = [];
-      this.dateHelper.updateDate(date);
-      for(let i = 0; i < 7; i++) {
-        let orderDay: Date = this.dateHelper.adjustDateByDays(i - date.getDay());
-        this.customDates.push(orderDay);
-      }
+      this.customDates = this.dateHelper.getWeekForDate(date);
     });
   }
 

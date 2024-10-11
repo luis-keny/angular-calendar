@@ -25,47 +25,13 @@ export class MonthContainerComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.urlDateSub = this.urlDateSrv.getDateFromUrlObservable().subscribe(date => {
-      this.defineMonth(date);
+      this.calendarDates = this.dateHelper.getMonthForDate(date);
+      this.weekDayNames = this.dateHelper.getWeekDayNames(this.calendarDates[0]);
     });
   }
 
   ngOnDestroy(): void {
     if(this.urlDateSub) this.urlDateSub.unsubscribe();
-  }
-
-  private defineMonth(custom: Date) {
-    const { month, year } = this.dateHelper.getDateParts(custom);
-    
-    let lastDayOfMonth: number = this.dateHelper.lastDayOfMonth(custom);
-    let weekStartDate = this.dateHelper.buildDate(year,month,1);
-    let dayAdjustment: Date = weekStartDate;
-    
-    this.dateHelper.updateDate(weekStartDate);
-    this.calendarDates = [];
-
-    do{
-      let rowDays: Date[] = [];
-      
-      for(let i = 0; i < 7; i++) {
-        dayAdjustment = this.dateHelper.adjustDateByDays(i - weekStartDate.getDay());
-        rowDays.push(dayAdjustment);
-      }
-      
-      weekStartDate = this.dateHelper.buildDate(year,month,dayAdjustment.getDate()+1);
-      this.dateHelper.updateDate(weekStartDate);
-      this.calendarDates.push(rowDays);
-    } while(!(
-      dayAdjustment.getDate() == lastDayOfMonth ||
-      dayAdjustment.getMonth() > custom.getMonth() ||
-      dayAdjustment.getFullYear() > custom.getFullYear()
-    ));
-
-    this.weekDayNames = [];
-
-    this.calendarDates[0].map(day => {
-      const name = day.toString().split(" ")[0];
-      this.weekDayNames.push(name);
-    });
   }
 
   public isCurrentDay(selectedDate: Date): boolean {
