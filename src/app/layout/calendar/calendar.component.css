@@ -1,4 +1,17 @@
-.header {
+.calendar {
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+.calendar__container {
+    position: relative;
+    overflow: hidden;
+}
+
+.header__container {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -43,4 +56,22 @@
 
 .header__icon path:last-child {
     stroke: var(--color-600);
+}
+
+.date__name {
+    text-align: center;
+}
+
+.date__name--aux {
+    display: none;
+}
+
+@media (width > 480px) {
+    .date__name {
+        display: none;
+    }
+    
+    .date__name--aux {
+        display: block;
+    }
 }
