@@ -132,4 +132,54 @@ export class DateHelper {
 
         return currentMonthInfo.maxDay;
     }
+
+    public getWeekForDate(dateSelected?: Date): Date[] {
+        let week: Date[] = [];
+        
+        if(dateSelected) this.date = dateSelected;
+
+        for(let i = 0; i < 7; i++) {
+            let orderDay: Date = this.adjustDateByDays(i - this.date.getDay());
+            week.push(orderDay);
+        }
+
+        return week;
+    }
+
+    public getWeekDayNames(week: Date[]): string[] {
+        let weekDayNames: string[] = [];
+
+        week.map(day => {
+            const name = day.toString().split(" ")[0];
+            weekDayNames.push(name);
+        });
+
+        return weekDayNames;
+    }
+
+    public getMonthForDate(dateSelected?: Date): Date[][] {
+        if(dateSelected) this.updateDate(dateSelected);
+
+        let monthWeeks: Date[][] = [];
+        const { month, year } = this.getDateParts();
+    
+        let lastDayOfMonth: number = this.lastDayOfMonth();
+        let weekStartDate = this.buildDate(year,month,1);
+        let weekEndDate: Date = weekStartDate;
+    
+        this.updateDate(weekStartDate);
+
+        do{
+            let daysOfWeek: Date[] = this.getWeekForDate(weekStartDate);
+            weekEndDate = daysOfWeek[daysOfWeek.length - 1];
+            weekStartDate = this.buildDate(year,month,weekEndDate.getDate()+1);
+            monthWeeks.push(daysOfWeek);
+        } while(!(
+            weekEndDate.getDate() == lastDayOfMonth ||
+            weekEndDate.getMonth() > this.date.getMonth() ||
+            weekEndDate.getFullYear() > this.date.getFullYear()
+        ));
+
+        return monthWeeks;
+    }
 }
