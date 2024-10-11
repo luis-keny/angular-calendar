@@ -1,1 +1,18 @@
-<p>month-container works!</p>
+<section #ContentMain class="content-main">
+    <div class="week">
+        @for (name of weekDayNames; track $index) {
+            <div class="week__name">{{name}}</div>
+        }
+    </div>
+    <div class="month">
+        @for (dates of calendarDates; track $index) {
+            <div class="month__row">
+                @for (date of dates; track $index) {
+                    <div class="month__day">
+                        <p class="day__number" [class]="isCurrentDay(date) ?  'active' : ''"><span>{{ date.getDate() }}</span></p>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</section>
