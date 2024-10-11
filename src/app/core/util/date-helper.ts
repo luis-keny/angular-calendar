@@ -123,4 +123,13 @@ export class DateHelper {
 
         this.updateDate(dateGenerated);
     }
+
+    public lastDayOfMonth(custom?: Date) {
+        let customDate = this.date;
+        if(custom) customDate = custom;
+        const { month } = this.getDateParts(custom);
+        const currentMonthInfo = this.monthDaysMap.filter(v => v.month === month)[0];
+
+        return currentMonthInfo.maxDay;
+    }
 }
