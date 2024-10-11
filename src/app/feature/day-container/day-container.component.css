@@ -1,3 +1,9 @@
+.container {
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
 .content {
     display: grid;
     grid-template-columns: 2.25rem auto;
@@ -5,7 +11,6 @@
 
 .content--event {
     overflow: auto;
-    height: calc(100vh - (59px + 37px + 0.5rem));
 }
 
 .day {

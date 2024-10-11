@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, Renderer2, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
 
 import { YearContainerComponent } from '../year-container/year-container.component';
 import { ModalService, UrlDateService } from '../../core/index-service';
@@ -13,9 +13,7 @@ import { DateHelper } from '../../core/index-util';
   standalone: true,
   imports: [],
 })
-export class DayContainerComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('ContentDay') contentDayElementRef!: any;
-  @ViewChild('ContentEvent') contentEventElementRef!: any;
+export class DayContainerComponent implements OnInit, OnDestroy {
   dateHelper: DateHelper = new DateHelper(new Date());
   customDate: Date = new Date();
   currentDate = new Date();
@@ -25,7 +23,6 @@ export class DayContainerComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private modalSrv: ModalService,
     private viewContainerRef: ViewContainerRef,
-    private render: Renderer2,
     private urlDateSrv: UrlDateService,
   ) {
     this.createHours();
@@ -37,10 +34,6 @@ export class DayContainerComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  ngAfterViewInit(): void {
-    this.calculateHeightContentEvent();
-  }
-
   ngOnDestroy(): void {
     if(this.urlDateSub) this.urlDateSub.unsubscribe();
   }
@@ -50,14 +43,6 @@ export class DayContainerComponent implements OnInit, AfterViewInit, OnDestroy {
       let hourString = i.toString().padStart(2,'0') + ":00";
       this.hours.push(hourString);
     }
-  }
-
-  private calculateHeightContentEvent() {
-    if(!this.contentDayElementRef && !this.contentEventElementRef) return;
-    const heightHeaderCalendar = 59;
-    const heightContentDay = this.contentDayElementRef.nativeElement.offsetHeight;
-    const contentEventElement= this.contentEventElementRef.nativeElement;
-    this.render.setStyle(contentEventElement,'height',`calc(100vh - (${ heightContentDay + heightHeaderCalendar }px))`)
   }
 
   public modalOpen() {

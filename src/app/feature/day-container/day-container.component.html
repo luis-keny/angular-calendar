@@ -1,5 +1,5 @@
 <section class="container">
-    <div #ContentDay class="content">
+    <div class="content">
         <span class="void"></span>
         <div class="day">
             <h5 class="day__name" [class]="isCurrentDay(customDate) ? 'active' : ''">{{ customDate.toString().split(" ")[0] }}</h5>
@@ -7,7 +7,7 @@
             <span class="date__void"></span>
         </div>
     </div>
-    <div #ContentEvent class="content content--event">
+    <div class="content content--event">
         <ul class="time">
             @for (hour of hours; track $index) {
                 <li class="time__item">
