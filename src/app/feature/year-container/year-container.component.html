@@ -1,1 +1,28 @@
-<p>year-container works!</p>
+<section #ContentMain class="year">
+    @for (month of calendarDates; track $index) {
+        <div class="month">
+            <h3 class="month__name">{{getNameOfMonth(month) }}</h3>
+            <div class="week">
+                @for (date of month[0]; track $index) {
+                    <div class="week__name">{{date.toString().split(" ")[0].slice(0,2)}}</div>
+                }
+            </div>
+            <div class="month__content">
+                @for (week of month; track $index) {
+                    <div class="week">
+                        @for (day of week; track $index) {
+                            <div class="day">
+                                <p class="day__number" 
+                                    [class]="{
+                                        'isCurrent' : isCurrentDay(day),
+                                        'isOtherMonth' : isOtherMonth(month, day),
+                                    }"
+                                >{{ day.getDate() }}</p>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</section>

@@ -1,0 +1,60 @@
+.year {
+    user-select: none;
+    height: 100%;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow-y: scroll;
+    padding: 1rem 0;
+}
+
+.month__name {
+    text-align: center;
+}
+
+.month__content {
+    width: 16rem;
+    height: 14rem;
+    display: grid;
+    grid-template-rows: repeat(auto-fill,1fr);
+}
+
+.week {
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+}
+
+.week__name {
+    font-weight: 600;
+    padding-top: 0.5rem;
+}
+
+.day {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.day__number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.day__number.isOtherMonth {
+    opacity: 0.5;
+}
+
+.day__number.isCurrent {
+    background-color: var(--color-700);
+    color: var(--color-50);
+}
