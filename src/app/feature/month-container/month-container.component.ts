@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+
 import { UrlDateService } from '../../core/index-service';
 import { DateHelper } from '../../core/index-util';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-month-container',
@@ -10,9 +11,7 @@ import { Subscription } from 'rxjs';
   standalone: true,
   imports: [],
 })
-export class MonthContainerComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('ContentMain') contentMainElementRef!: any;
-
+export class MonthContainerComponent implements OnInit, OnDestroy {
   weekDayNames: string[] = [];
   calendarDates: Date[][] = [];
   currentDate = new Date();
@@ -21,7 +20,6 @@ export class MonthContainerComponent implements OnInit, AfterViewInit, OnDestroy
   urlDateSub: Subscription = new Subscription();
 
   constructor(
-    private render: Renderer2,
     private urlDateSrv: UrlDateService,
   ) { }
 
@@ -29,10 +27,6 @@ export class MonthContainerComponent implements OnInit, AfterViewInit, OnDestroy
     this.urlDateSub = this.urlDateSrv.getDateFromUrlObservable().subscribe(date => {
       this.defineMonth(date);
     });
-  }
-
-  ngAfterViewInit(): void {
-    this.calculateHeightContentEvent();
   }
 
   ngOnDestroy(): void {
@@ -72,14 +66,6 @@ export class MonthContainerComponent implements OnInit, AfterViewInit, OnDestroy
       const name = day.toString().split(" ")[0];
       this.weekDayNames.push(name);
     });
-  }
-
-  private calculateHeightContentEvent() {
-    if(!this.contentMainElementRef) return;
-    const heightHeaderCalendar = 59;
-    const contentMainElement= this.contentMainElementRef.nativeElement;
-
-    this.render.setStyle(contentMainElement,'height',`calc(100vh - (${ heightHeaderCalendar }px))`)
   }
 
   public isCurrentDay(selectedDate: Date): boolean {
