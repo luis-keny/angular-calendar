@@ -1,27 +1,64 @@
-# Calendar
+# Angular Calendar
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.4.
+**Angular Calendar** is a calendar component inspired by Google Calendar, designed to be highly customizable and adaptable for any developer wanting to work with calendars in Angular. The project is built using Angular 18 without any additional libraries, ensuring a lightweight and efficient experience.
 
-## Development server
+## Description
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+The purpose of this project is to create a versatile calendar that allows users to register events and view them across different views, such as:
 
-## Code scaffolding
+- Daily view
+- Weekly view
+- Monthly view
+- Yearly view
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+The calendar component is **responsive by default**, adapting to different screen sizes to provide a seamless user experience on any device.
 
-## Build
+## Features
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- **Event registration**: Allows users to add, edit, and delete events in the calendar.
+- **Multiple views**: Offers day, week, month, and year views to provide a flexible overview of scheduled events.
+- **Customization**: The component is easily customizable to meet the requirements of other developers.
+- **Responsive design**: Adapts to mobile and desktop screens for an optimal user experience.
+- **Clean architecture**: Follows a folder structure based on `core`, `feature`, `layout`, and `shared` principles.
 
-## Running unit tests
+## Technologies
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- **Angular 18**: The main framework used in this project.
+- **Onest**: The font used in the design of the calendar.
 
-## Running end-to-end tests
+## Installation
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+1. Clone the repository:
 
-## Further help
+    ```bash
+    git clone https://github.com/your-username/angular-calendar.git
+    ```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+2. Navigate to the project directory:
+    ```bash
+    cd angular-calendar
+    ```
+3. Install the dependencies:
+    ```bash
+    npm install
+    ```
+4. Start the development server:
+    ```bash
+    ng serve
+    ```
+5. Open the application in your browser:
+    ```bash
+    http://localhost:4200
+    ```
+## Usage
+
+Once the project is up and running, you can interact with the calendar, add events, and switch between different views (day, week, month, year) according to your needs.
+
+## Project Structure
+
+The project follows a **clean architecture** to ensure maintainability and scalability. The folder structure is divided into the following key areas:
+
+- `core`: Central code managing shared logic.
+- `feature`: Main calendar functionalities.
+- `layout`: Manages the visual structure and design of the application.
+- `shared`: Reusable components, styles and services throughout the application.
