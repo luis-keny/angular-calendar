@@ -14,7 +14,7 @@ import { UrlDateService } from '../../core/index-service';
 export class CalendarComponent implements OnInit, OnDestroy {
   currentDay = new Date();
   customDate!: Date;
-  calendarView: CalendarView = 'week';
+  calendarView: CalendarView = this.getCalendarViewOfLocalStorage();
   urlDateSub: Subscription = new Subscription();
   dateHelper = new DateHelper(new Date());
 
@@ -32,6 +32,11 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if(this.urlDateSub) this.urlDateSub.unsubscribe();
+  }
+
+  private getCalendarViewOfLocalStorage(): CalendarView {
+    const view = localStorage.getItem('calendarView') ?? 'week';
+    return view as CalendarView
   }
 
   private navigateByView(view: CalendarView) {

@@ -1,6 +1,6 @@
 <section class="calendar">
     <header class="header">
-        <h3 class="date__name">{{ customDate | monthYear}}</h3>
+        <h3 class="date__name">{{ customDate | monthYear:calendarView}}</h3>
         <div class="header__container">
             <div class="header__date">
                 <div class="header__date--controls">
@@ -12,7 +12,7 @@
                         <path d="M9 6l6 6l-6 6" />
                     </svg>
                 </div>
-                <h3 class="date__name--aux">{{ customDate | monthYear}}</h3>
+                <h3 class="date__name--aux">{{ customDate | monthYear:calendarView}}</h3>
             </div>
             <app-select-custom (viewCalendarChange)="updateViewCalendar($event)"></app-select-custom>
         </div>
