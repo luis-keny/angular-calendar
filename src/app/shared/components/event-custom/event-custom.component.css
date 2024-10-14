@@ -4,6 +4,31 @@
     width: 98%;
 }
 
+.moment {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    width: calc(100% + 0.4rem);
+    left: -0.4rem;
+}
+
+.moment__circle {
+    height: 0.8rem;
+    width: 0.8rem;
+    background-color: orange;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.moment__line {
+    height: 0.1rem;
+    width: 100%;
+    background-color: orange;
+}
+
 .event {
     position: absolute;
     width: 100%;

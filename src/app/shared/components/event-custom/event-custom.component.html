@@ -1,6 +1,12 @@
 <div class="content__event">
+    <div class="moment"
+        [style]="'top: ' + getTopOfCurrentMoment() + ';' + (isEqualDate(dateSelected, currentMoment) ? '':'display: none;')">
+        <div class="moment__circle"></div>
+        <div class="moment__line"></div>
+    </div>
     @for (task of tasks; track $index) {
-        <div class="event" [style]="'top:'+task.top + '; background-color: ' + (task.color ?? 'var(--color-900)')">
+        <div class="event" 
+            [style]="'top:'+task.top + '; background-color: ' + (task.color ?? 'var(--color-900)') + (isLessThatCurrent(task) ? '; opacity:0.5;' : '')">
             <div class="event__task" [style]="'height: calc('+task.height+' - 2px)'">
                 <span class="event__task--name">{{ task.title }}</span>
                 <span class="event__task--time">{{ task.startTime }} - {{ task.endTime }}</span>
