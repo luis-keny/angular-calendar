@@ -13,9 +13,11 @@
                         @for (day of week; track $index) {
                             <div class="day">
                                 <p class="day__number" 
+                                    (click)="navigateByDay(day)"
                                     [class]="{
                                         'isCurrent' : isCurrentDay(day),
                                         'isOtherMonth' : isOtherMonth(month, day),
+                                        'isSelected' : isDateSelected(day),
                                     }"
                                 >{{ day.getDate() }}</p>
                             </div>
