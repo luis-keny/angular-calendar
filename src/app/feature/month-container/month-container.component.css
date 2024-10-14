@@ -23,6 +23,8 @@
 }
 
 .month__day {
+    /* overflow: hidden; */
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -51,4 +53,54 @@
 .day__number.active {
     background-color: var(--color-700);
     color: var(--color-50);
+}
+
+.event {
+    width: 100%;
+    overflow: hidden;
+    font-size: 0.8rem;
+    padding: 0 0.3rem;
+}
+
+.event__content {
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto auto 1fr;
+    gap: 0.2rem;
+}
+
+.circle {
+    height: 0.5rem;
+    width: 0.5rem;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.event__time {
+    font-weight: 400;
+    color: var(--color-400);
+}
+
+.event__name {
+    overflow: hidden;
+    text-wrap: nowrap;
+    font-weight: 500;
+}
+
+.event--more {
+    color: var(--color-900);
+    padding: 0.2rem;
+    cursor: pointer;
+    border-radius: 0.2rem;
+    -webkit-border-radius: 0.2rem;
+    -moz-border-radius: 0.2rem;
+    -ms-border-radius: 0.2rem;
+    -o-border-radius: 0.2rem;
+}
+
+.event--more:hover {
+    background-color: #00000010;
 }

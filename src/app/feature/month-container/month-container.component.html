@@ -10,6 +10,21 @@
                 @for (date of dates; track $index) {
                     <div class="month__day">
                         <p class="day__number" [class]="isCurrentDay(date) ?  'active' : ''"><span>{{ date.getDate() }}</span></p>
+                        <div class="event">
+                            @for (task of filterTasks(date); track $index) {
+                                @if ($index < 2) {
+                                    <p class="event__content">
+                                        <span class="circle" [style]="'background-color: ' + (task.color ?? 'var(--color-900)')"></span>
+                                        <span class="event__time">{{ task.startTime }}</span>
+                                        <span class="event__name">{{ task.title }}</span>
+                                    </p>
+                                }@else if(filterTasks(date).length > 2 && $index == 2) {
+                                    <div class="event--more">
+                                        <span>{{ filterTasks(date).length - 2 }} more</span>
+                                    </div>
+                                }
+                            }
+                        </div>
                     </div>
                 }
             </div>
