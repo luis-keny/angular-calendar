@@ -22,7 +22,9 @@
         <div class="event" (click)="modalOpen()">
             <div class="week__content">
                 @for (customDate of customDates; track $index) {
-                    <div class="event__content"></div>
+                    <div class="event__content">
+                        <app-event-custom [heightPerHours]="2.5" [unitOfMeasure]="'rem'" [tasks]="filterTasks(customDate)"></app-event-custom>
+                    </div>
                 }
             </div>
         </div>
