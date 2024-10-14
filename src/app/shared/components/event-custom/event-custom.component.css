@@ -1,0 +1,34 @@
+.content__event {
+    position: relative;
+    height: 100%;
+    width: 98%;
+}
+
+.event {
+    position: absolute;
+    width: 100%;
+    color: white;
+    display: grid;
+    border-radius: 0.35rem;
+    -webkit-border-radius: 0.35rem;
+    -moz-border-radius: 0.35rem;
+    -ms-border-radius: 0.35rem;
+    -o-border-radius: 0.35rem;
+}
+
+.event__task {
+    width: fit-content;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.7rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    flex-wrap: wrap;
+    gap: 0rem 0.5rem;
+    align-items: start;
+}
+
+.event__task--name {
+    font-weight: 700;
+}
