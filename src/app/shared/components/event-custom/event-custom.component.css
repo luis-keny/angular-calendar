@@ -6,6 +6,7 @@
 
 .moment {
     position: absolute;
+    z-index: 10;
     display: flex;
     align-items: center;
     width: calc(100% + 0.4rem);
@@ -24,8 +25,9 @@
 }
 
 .moment__line {
-    height: 0.1rem;
+    height: 0.15rem;
     width: 100%;
+    margin-right: -2.05%;
     background-color: orange;
 }
 
@@ -42,7 +44,6 @@
 }
 
 .event__task {
-    width: fit-content;
     padding: 0.3rem 0.5rem;
     font-size: 0.7rem;
     display: flex;
@@ -51,9 +52,14 @@
     align-items: start;
     flex-wrap: wrap;
     gap: 0rem 0.5rem;
-    align-items: start;
+    overflow: hidden;
 }
 
 .event__task--name {
     font-weight: 700;
+    white-space: normal;
+}
+
+.event__task--time {
+    text-wrap: nowrap;
 }

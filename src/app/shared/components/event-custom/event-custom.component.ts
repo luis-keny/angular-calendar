@@ -75,6 +75,7 @@ export class EventCustomComponent implements OnInit, OnChanges {
     const isLessYear = task.date.getFullYear() < this.currentMoment.getFullYear();
     const isLessMonth = task.date.getMonth() < this.currentMoment.getMonth();
     const isLessDay = task.date.getDate() < this.currentMoment.getDate();
+    const isEqualDay = task.date.getDate() == this.currentMoment.getDate();
 
     const startTimeParts = task.startTime.split(':');
     
@@ -84,6 +85,6 @@ export class EventCustomComponent implements OnInit, OnChanges {
     const isLessHour = startHour < this.currentMoment.getHours();
     const isLessMinute = startMinute < this.currentMoment.getMinutes();
 
-    return isLessDay || isLessMonth || isLessYear || (isLessHour && isLessMinute);
+    return isLessYear || isLessMonth || (isLessDay || (isLessHour && isLessMinute && isEqualDay));
   }
 }
