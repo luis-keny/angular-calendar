@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { YearContainerComponent } from '../year-container/year-container.component';
-import { ModalService, UrlDateService } from '../../core/index-service';
-import { ModalConfig } from '../../core/index-model';
-import { Subscription } from 'rxjs';
+import { EventCustomComponent } from '../../shared/components/event-custom/event-custom.component';
+
+import { ModalService, TaskService, UrlDateService } from '../../core/index-service';
+import { ModalConfig, Task } from '../../core/index-model';
 import { DateHelper } from '../../core/index-util';
 
 @Component({
@@ -11,12 +13,13 @@ import { DateHelper } from '../../core/index-util';
   templateUrl: './day-container.component.html',
   styleUrl: './day-container.component.css',
   standalone: true,
-  imports: [],
+  imports: [EventCustomComponent],
 })
 export class DayContainerComponent implements OnInit, OnDestroy {
   dateHelper: DateHelper = new DateHelper(new Date());
   customDate: Date = new Date();
   currentDate = new Date();
+  taskCurrentDate: Task[] = [];
   hours: string[] = [];
   urlDateSub: Subscription = new Subscription();
 
@@ -24,6 +27,7 @@ export class DayContainerComponent implements OnInit, OnDestroy {
     private modalSrv: ModalService,
     private viewContainerRef: ViewContainerRef,
     private urlDateSrv: UrlDateService,
+    private taskSrv: TaskService,
   ) {
     this.createHours();
   }
@@ -31,6 +35,9 @@ export class DayContainerComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.urlDateSub = this.urlDateSrv.getDateFromUrlObservable().subscribe(date => {
       this.customDate = date;
+      this.taskSrv.getTaskOfDay(date).subscribe(task => {
+        this.taskCurrentDate = task;
+      });
     });
   }
 

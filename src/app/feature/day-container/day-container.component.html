@@ -15,9 +15,10 @@
                 </li>
             }
         </ul>
-        <div class="event" (click)="modalOpen()">
+        <div class="event">
+            <!-- (click)="modalOpen()" -->
             <div class="event__content">
-
+                <app-event-custom [heightPerHours]="2.5" [unitOfMeasure]="'rem'" [tasks]="taskCurrentDate"></app-event-custom>
             </div>
         </div>
     </div>
