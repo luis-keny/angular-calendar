@@ -1,0 +1,298 @@
+[
+    {
+        "title": "Team Meeting",
+        "date": "2024-10-13",
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "color": "#ff5733"
+    },
+    {
+        "title": "Code Review",
+        "date": "2024-10-13",
+        "startTime": "10:30",
+        "endTime": "11:30",
+        "color": "blue"
+    },
+    {
+        "title": "Design Discussion",
+        "date": "2024-10-13",
+        "startTime": "13:00",
+        "endTime": "14:00"
+    },
+    {
+        "title": "Lunch Break",
+        "date": "2024-10-13",
+        "startTime": "12:30",
+        "endTime": "13:00"
+    },
+    {
+        "title": "Project Update",
+        "date": "2024-10-14",
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "color": "red"
+    },
+    {
+        "title": "Client Call",
+        "date": "2024-10-14",
+        "startTime": "11:00",
+        "endTime": "12:00"
+    },
+    {
+        "title": "New Feature Discussion",
+        "date": "2024-10-14",
+        "startTime": "14:00",
+        "endTime": "15:00",
+        "color": "#007bff"
+    },
+    {
+        "title": "Internal Demo",
+        "date": "2024-10-14",
+        "startTime": "15:30",
+        "endTime": "16:30"
+    },
+    {
+        "title": "Morning Brief",
+        "date": "2024-10-15",
+        "startTime": "09:00",
+        "endTime": "09:30"
+    },
+    {
+        "title": "Backend Discussion",
+        "date": "2024-10-15",
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "color": "#000"
+    },
+    {
+        "title": "Frontend Meeting",
+        "date": "2024-10-15",
+        "startTime": "12:00",
+        "endTime": "13:00"
+    },
+    {
+        "title": "Coffee Break",
+        "date": "2024-10-15",
+        "startTime": "11:00",
+        "endTime": "11:30"
+    },
+    {
+        "title": "Presentation Prep",
+        "date": "2024-10-16",
+        "startTime": "09:30",
+        "endTime": "10:30",
+        "color": "green"
+    },
+    {
+        "title": "Team Check-in",
+        "date": "2024-10-16",
+        "startTime": "11:00",
+        "endTime": "11:30"
+    },
+    {
+        "title": "Sprint Planning",
+        "date": "2024-10-16",
+        "startTime": "14:00",
+        "endTime": "15:30",
+        "color": "#333"
+    },
+    {
+        "title": "Break",
+        "date": "2024-10-16",
+        "startTime": "15:30",
+        "endTime": "16:00"
+    },
+    {
+        "title": "Code Merge",
+        "date": "2024-10-17",
+        "startTime": "10:00",
+        "endTime": "11:00"
+    },
+    {
+        "title": "Database Optimization",
+        "date": "2024-10-17",
+        "startTime": "11:30",
+        "endTime": "12:30",
+        "color": "#ffc107"
+    },
+    {
+        "title": "Lunch",
+        "date": "2024-10-17",
+        "startTime": "13:00",
+        "endTime": "13:30"
+    },
+    {
+        "title": "Client Feedback Session",
+        "date": "2024-10-18",
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "color": "purple"
+    },
+    {
+        "title": "Retrospective",
+        "date": "2024-10-18",
+        "startTime": "11:00",
+        "endTime": "12:00"
+    },
+    {
+        "title": "Bug Fixing",
+        "date": "2024-10-18",
+        "startTime": "13:00",
+        "endTime": "14:00",
+        "color": "#f39c12"
+    },
+    {
+        "title": "Break",
+        "date": "2024-10-18",
+        "startTime": "14:30",
+        "endTime": "15:00"
+    },
+    {
+        "title": "API Development",
+        "date": "2024-10-19",
+        "startTime": "09:00",
+        "endTime": "11:00"
+    },
+    {
+        "title": "Test Automation",
+        "date": "2024-10-19",
+        "startTime": "11:30",
+        "endTime": "12:30",
+        "color": "#17a2b8"
+    },
+    {
+        "title": "Lunch",
+        "date": "2024-10-19",
+        "startTime": "13:00",
+        "endTime": "13:30"
+    },
+    {
+        "title": "Code Debugging",
+        "date": "2024-10-19",
+        "startTime": "14:00",
+        "endTime": "15:30",
+        "color": "#28a745"
+    },
+    {
+        "title": "Documentation",
+        "date": "2024-10-20",
+        "startTime": "09:00",
+        "endTime": "10:00"
+    },
+    {
+        "title": "Deploy to Production",
+        "date": "2024-10-20",
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "color": "#dc3545"
+    },
+    {
+        "title": "Lunch",
+        "date": "2024-10-20",
+        "startTime": "12:30",
+        "endTime": "13:00"
+    },
+    {
+        "title": "UI Testing",
+        "date": "2024-10-20",
+        "startTime": "13:30",
+        "endTime": "15:00"
+    },
+    {
+        "title": "Morning Stand-up",
+        "date": "2024-10-21",
+        "startTime": "09:00",
+        "endTime": "09:30",
+        "color": "#5a6268"
+    },
+    {
+        "title": "Requirement Analysis",
+        "date": "2024-10-21",
+        "startTime": "10:00",
+        "endTime": "11:30"
+    },
+    {
+        "title": "Lunch",
+        "date": "2024-10-21",
+        "startTime": "12:30",
+        "endTime": "13:00"
+    },
+    {
+        "title": "Sprint Demo",
+        "date": "2024-10-21",
+        "startTime": "14:00",
+        "endTime": "15:00",
+        "color": "#20c997"
+    },
+    {
+        "title": "Afternoon Break",
+        "date": "2024-10-22",
+        "startTime": "15:00",
+        "endTime": "15:30"
+    },
+    {
+        "title": "Database Migration",
+        "date": "2024-10-22",
+        "startTime": "09:00",
+        "endTime": "10:30",
+        "color": "orange"
+    },
+    {
+        "title": "API Testing",
+        "date": "2024-10-22",
+        "startTime": "11:00",
+        "endTime": "12:30"
+    },
+    {
+        "title": "Lunch",
+        "date": "2024-10-22",
+        "startTime": "12:30",
+        "endTime": "13:00"
+    },
+    {
+        "title": "Client Presentation",
+        "date": "2024-10-23",
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "color": "#6f42c1"
+    },
+    {
+        "title": "Break",
+        "date": "2024-10-23",
+        "startTime": "11:30",
+        "endTime": "12:00"
+    },
+    {
+        "title": "Data Analysis",
+        "date": "2024-10-23",
+        "startTime": "13:00",
+        "endTime": "14:00",
+        "color": "#adb5bd"
+    },
+    {
+        "title": "Meeting with CEO",
+        "date": "2024-10-24",
+        "startTime": "09:00",
+        "endTime": "10:30"
+    },
+    {
+        "title": "Lunch",
+        "date": "2024-10-24",
+        "startTime": "12:30",
+        "endTime": "13:00"
+    },
+    {
+        "title": "Feature Testing",
+        "date": "2024-10-24",
+        "startTime": "14:00",
+        "endTime": "15:30",
+        "color": "#dc3545"
+    },
+    {
+        "title": "Testing",
+        "date": "2024-11-24",
+        "startTime": "14:00",
+        "endTime": "15:30",
+        "color": "#dc3545"
+    }
+]
