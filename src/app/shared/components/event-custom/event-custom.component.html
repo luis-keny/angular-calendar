@@ -13,7 +13,9 @@
             [currentMoment]="currentMoment"
             >
             <span class="event__task--name">{{ task.title }}</span>
-            <span class="event__task--time">{{ task.startTime }} - {{ task.endTime }}</span>
+            <span class="event__task--time">
+                <span>{{ task.startTime }}</span><span> - {{ task.endTime }}</span>
+            </span>
         </div>
     }
 </div>

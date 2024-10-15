@@ -50,9 +50,13 @@
     -o-border-radius: 0.35rem;
 }
 
-.event.task--line > *:first-child::after {
+.event.task--line .event__task--name::after {
     content: ',';
     margin-right: 0.3rem;
+}
+
+.event.task--line .event__task--time *:last-child {
+    display: none;
 }
 
 .event__task--name {
