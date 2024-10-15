@@ -21,6 +21,7 @@ export class CalendarTaskDirective implements OnChanges {
 
     const { height, top } = this.getTopAndHeight(startTime,endTime);
     const element = this.elementRef.nativeElement;
+    const acceptableHeight = (this.heightPerHours*4)/5;
     const backgroundColor = color ?? 'var(--color-900)';
 
     this.render.setStyle(element, 'height', `calc( ${height} - 1px)`);
@@ -30,10 +31,16 @@ export class CalendarTaskDirective implements OnChanges {
     if(this.isLessThatCurrent(date, endTime)) {
       this.render.setStyle(element, 'opacity', '0.5');
     }
-    if(parseFloat(height) >= 2) {
+
+    if(parseFloat(height) >= acceptableHeight) {
       this.render.setStyle(element,"flex-direction", "column");
     } else {
       this.render.addClass(element,"task--line");
+    }
+
+    if(parseFloat(height) <= ((acceptableHeight)/2)) {
+      this.render.setStyle(element, "padding", "0 0.5rem")
+      this.render.setStyle(element, "font-size", "0.6rem")
     }
   }
 
@@ -51,8 +58,10 @@ export class CalendarTaskDirective implements OnChanges {
     const startTop = (oneHour*startHour + oneHour*(startMinute/60));
     const endTop = (oneHour*endHour + oneHour*(endMinute/60));
     
+    const acceptableHeight = endTop - startTop <= (oneHour/3) ? oneHour/3 : endTop - startTop;
+
     const top = startTop.toString() + this.unitOfMeasure;
-    const height = (endTop - startTop).toString() + this.unitOfMeasure;
+    const height = (acceptableHeight).toString() + this.unitOfMeasure;
 
     return { top, height };
   }
