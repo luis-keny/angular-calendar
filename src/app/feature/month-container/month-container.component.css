@@ -23,7 +23,7 @@
 }
 
 .month__day {
-    /* overflow: hidden; */
+    overflow: hidden;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -94,6 +94,7 @@
     color: var(--color-900);
     padding: 0.2rem;
     cursor: pointer;
+    text-wrap: nowrap;
     border-radius: 0.2rem;
     -webkit-border-radius: 0.2rem;
     -moz-border-radius: 0.2rem;

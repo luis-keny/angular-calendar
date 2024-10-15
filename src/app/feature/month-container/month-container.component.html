@@ -4,7 +4,7 @@
             <div class="week__name">{{name}}</div>
         }
     </div>
-    <div class="month">
+    <div class="month" [style]="'grid-template-rows: repeat('+calendarDates.length+',1fr);'">
         @for (dates of calendarDates; track $index) {
             <div class="month__row">
                 @for (date of dates; track $index) {
