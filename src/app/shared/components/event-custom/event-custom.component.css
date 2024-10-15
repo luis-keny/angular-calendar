@@ -34,8 +34,15 @@
 .event {
     position: absolute;
     width: 100%;
+    overflow: hidden;
+    padding: 0.3rem 0.5rem;
+    
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    
     color: white;
-    display: grid;
+    font-size: 0.7rem;
     border-radius: 0.35rem;
     -webkit-border-radius: 0.35rem;
     -moz-border-radius: 0.35rem;
@@ -43,21 +50,15 @@
     -o-border-radius: 0.35rem;
 }
 
-.event__task {
-    padding: 0.3rem 0.5rem;
-    font-size: 0.7rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: start;
-    flex-wrap: wrap;
-    gap: 0rem 0.5rem;
-    overflow: hidden;
+.event.task--line > *:first-child::after {
+    content: ',';
+    margin-right: 0.3rem;
 }
 
 .event__task--name {
     font-weight: 700;
     white-space: normal;
+    text-wrap: nowrap;
 }
 
 .event__task--time {
