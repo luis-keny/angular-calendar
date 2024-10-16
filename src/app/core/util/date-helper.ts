@@ -205,4 +205,12 @@ export class DateHelper {
 
         return yearMonth;
     }
+
+    public isEqualDate(day1: Date, day2: Date): boolean {
+        const isEqualYear = day1.getFullYear() == day2.getFullYear();
+        const isEqualMonth = day1.getMonth() == day2.getMonth();
+        const isEqualDay = day1.getDate() == day2.getDate();
+    
+        return isEqualDay && isEqualMonth && isEqualYear;
+    }
 }

@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { YearContainerComponent } from '../year-container/year-container.component';
 import { EventCustomComponent } from '../../shared/components/event-custom/event-custom.component';
 
-import { ModalConfig, Task } from '../../core/index-model';
+import { ModalConfig, Task, TaskGroup } from '../../core/index-model';
 import { ModalService, TaskService, UrlDateService } from '../../core/index-service';
 import { DateHelper } from '../../core/index-util';
 
@@ -19,9 +19,10 @@ export class WeekContainerComponent implements OnInit, OnDestroy {
   dateHelper: DateHelper = new DateHelper();
   customDates: Date[] = [];
   currentDate = new Date();
-  tasks: Task[] = [];
+  taskGroups: TaskGroup[] = [];
   hours: string[] = [];
   urlDateSub: Subscription = new Subscription();
+  taskSub: Subscription = new Subscription();
 
   constructor(
     private modalSrv: ModalService,
@@ -35,14 +36,15 @@ export class WeekContainerComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.urlDateSub = this.urlDateSrv.getDateFromUrlObservable().subscribe(date => {
       this.customDates = this.dateHelper.getWeekForDate(date);
-      this.taskSrv.getTaskOfWeek(date).subscribe(tasks => {
-        this.tasks = tasks;
+      this.taskSub = this.taskSrv.getTaskOfWeek(date).subscribe(tasks => {
+        this.taskGroups = tasks;
       });
     });
   }
 
   ngOnDestroy(): void {
     if(this.urlDateSub) this.urlDateSub.unsubscribe();
+    if(this.taskSub) this.taskSub.unsubscribe();
   }
 
   private createHours() {
@@ -65,10 +67,6 @@ export class WeekContainerComponent implements OnInit, OnDestroy {
     let custom = this.dateHelper.getDateParts(customDay)
 
     return current.year == custom.year && current.month == custom.month && current.day == custom.day;
-  }
-
-  public filterTasks(date: Date): Task[] {
-    return this.tasks.filter(task => this.isEqualDate(task.date,date));
   }
 
   private isEqualDate(day1: Date, day2: Date): boolean {

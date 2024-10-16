@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Task } from '../../../core/index-model';
+import { TaskGroup } from '../../../core/index-model';
 import { CalendarTaskDirective } from '../../../core/index-directive';
 
 @Component({
@@ -13,7 +13,7 @@ import { CalendarTaskDirective } from '../../../core/index-directive';
 export class EventCustomComponent implements OnInit {
   @Input({ required: true }) heightPerHours!: number;
   @Input({ required: true }) unitOfMeasure!: string;
-  @Input({ required: true }) tasks: Task[] = []
+  @Input({ required: true }) taskGroup: TaskGroup = {date: new Date(), tasks: []};
   @Input({ required: true }) dateSelected!: Date;
 
   currentMoment: Date = new Date();

@@ -23,12 +23,14 @@
             <div class="week__content">
                 @for (customDate of customDates; track $index) {
                     <div class="event__content">
-                        <app-event-custom 
-                            [heightPerHours]="2.5"
-                            [unitOfMeasure]="'rem'"
-                            [tasks]="filterTasks(customDate)"
-                            [dateSelected]="customDate"
-                        ></app-event-custom>
+                        @if(taskGroups[$index]) {
+                            <app-event-custom 
+                                [heightPerHours]="2.5"
+                                [unitOfMeasure]="'rem'"
+                                [taskGroup]="taskGroups[$index]"
+                                [dateSelected]="taskGroups[$index].date"
+                            ></app-event-custom>
+                        }
                     </div>
                 }
             </div>

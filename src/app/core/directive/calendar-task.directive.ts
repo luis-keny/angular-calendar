@@ -6,10 +6,11 @@ import { Task } from '../index-model';
   standalone: true,
 })
 export class CalendarTaskDirective implements OnChanges {
-  @Input({ required: true }) task!: Task
+  @Input({ required: true }) task!: Task;
   @Input({ required: true }) heightPerHours!: number;
   @Input({ required: true }) unitOfMeasure!: string;
   @Input({ required: true }) currentMoment!: Date;
+  @Input({ required: true }) taskDay!: Date;
 
   constructor(
     private elementRef: ElementRef,
@@ -17,7 +18,7 @@ export class CalendarTaskDirective implements OnChanges {
   ) { }
 
   ngOnChanges(): void {
-    const { date, startTime, endTime, color } = this.task;
+    const { startTime, endTime, color } = this.task;
 
     const { height, top } = this.getTopAndHeight(startTime,endTime);
     const element = this.elementRef.nativeElement;
@@ -28,8 +29,10 @@ export class CalendarTaskDirective implements OnChanges {
     this.render.setStyle(element, 'top', top);
     this.render.setStyle(element, 'background-color', backgroundColor);
 
-    if(this.isLessThatCurrent(date, endTime)) {
+    if(this.isLessThatCurrent(this.taskDay, endTime)) {
       this.render.setStyle(element, 'opacity', '0.5');
+    } else {
+      this.render.setStyle(element, 'opacity', '1');
     }
 
     if(parseFloat(height) >= acceptableHeight) {
@@ -81,6 +84,6 @@ export class CalendarTaskDirective implements OnChanges {
     const isLessHour = endHour < this.currentMoment.getHours();
     const isLessMinute = endMinute < this.currentMoment.getMinutes();
 
-    return isLessYear || isLessMonth || (isLessDay || (isEqualDay && (isLessHour || (isEqualHour && isLessMinute))));
+    return isLessYear || isLessMonth || isLessDay || (isEqualDay && (isLessHour || (isEqualHour && isLessMinute)));
   }
 }

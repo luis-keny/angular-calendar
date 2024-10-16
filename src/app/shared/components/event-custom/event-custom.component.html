@@ -4,13 +4,14 @@
         <div class="moment__circle"></div>
         <div class="moment__line"></div>
     </div>
-    @for (task of tasks; track $index) {
+    @for (task of taskGroup.tasks; track $index) {
         <div class="event" 
             appCalendarTask
             [task]="task"
             [heightPerHours]="heightPerHours"
             [unitOfMeasure]="unitOfMeasure"
             [currentMoment]="currentMoment"
+            [taskDay]="taskGroup.date"
             >
             <span class="event__task--name">{{ task.title }}</span>
             <span class="event__task--time">

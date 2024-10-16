@@ -5,7 +5,7 @@ import { YearContainerComponent } from '../year-container/year-container.compone
 import { EventCustomComponent } from '../../shared/components/event-custom/event-custom.component';
 
 import { ModalService, TaskService, UrlDateService } from '../../core/index-service';
-import { ModalConfig, Task } from '../../core/index-model';
+import { ModalConfig, Task, TaskGroup } from '../../core/index-model';
 import { DateHelper } from '../../core/index-util';
 
 @Component({
@@ -19,9 +19,10 @@ export class DayContainerComponent implements OnInit, OnDestroy {
   dateHelper: DateHelper = new DateHelper(new Date());
   customDate: Date = new Date();
   currentDate = new Date();
-  taskCurrentDate: Task[] = [];
+  taskGroup: TaskGroup = { date: new Date(), tasks: [] };
   hours: string[] = [];
   urlDateSub: Subscription = new Subscription();
+  taskSub: Subscription = new Subscription();
 
   constructor(
     private modalSrv: ModalService,
@@ -35,14 +36,15 @@ export class DayContainerComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.urlDateSub = this.urlDateSrv.getDateFromUrlObservable().subscribe(date => {
       this.customDate = date;
-      this.taskSrv.getTaskOfDay(date).subscribe(task => {
-        this.taskCurrentDate = task;
+      this.taskSub = this.taskSrv.getTaskOfDay(date).subscribe(task => {
+        this.taskGroup = task;
       });
     });
   }
 
   ngOnDestroy(): void {
     if(this.urlDateSub) this.urlDateSub.unsubscribe();
+    if(this.taskSub) this.taskSub.unsubscribe();
   }
 
   private createHours() {

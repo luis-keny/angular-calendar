@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Task, TaskJson } from '../index-model';
+import { Task, TaskGroup, TaskJson } from '../index-model';
 import { map, Observable } from 'rxjs';
 import { DateHelper } from '../index-util';
 
@@ -15,42 +15,42 @@ export class TaskService {
         private http: HttpClient
     ) { }
 
-    getAll(): Observable<Task[]> {
+    getAll(): Observable<TaskGroup[]> {
         return this.http.get<TaskJson[]>(this.url).pipe(
-            map(tasks => tasks.map(this.transformToEntity))
+            map(tasks => this.transformToTaskGroup(tasks))
         )
     }
 
-    getTaskOfDay(date: Date): Observable<Task[]> {
+    getTaskOfDay(date: Date): Observable<TaskGroup> {
         return this.http.get<TaskJson[]>(this.url).pipe(
             map(tasks => {
                 const dateTasks = tasks.filter(task => this.dateToStringFormat(date) === task.date);
-                
-                return dateTasks.map(task => this.transformToEntity(task));
+                if(dateTasks.length<=0) return { date: date, tasks: [] };
+                return this.transformToTaskGroup(dateTasks)[0];
             })
         )
     }
 
-    getTaskOfWeek(date: Date): Observable<Task[]> {
+    getTaskOfWeek(date: Date): Observable<TaskGroup[]> {
         return this.http.get<TaskJson[]>(this.url).pipe(
             map(tasks => {
                 const week = this.dateHelper.getWeekForDate(date);
                 const weekString = week.map(day => this.dateToStringFormat(day));
                 const dateTasks = tasks.filter(task => weekString.includes(task.date));
                 
-                return dateTasks.map(task => this.transformToEntity(task));
+                return this.transformToTaskGroup(dateTasks);
             })
         )
     }
 
-    getTaskOfMonth(date: Date): Observable<Task[]> {
+    getTaskOfMonth(date: Date): Observable<TaskGroup[]> {
         return this.http.get<TaskJson[]>(this.url).pipe(
             map(tasks => {
                 const month = this.dateHelper.getMonthForDate(date);
                 const monthString = month.map(week => week.map(day => this.dateToStringFormat(day)));
                 const dateTasks = tasks.filter(task => monthString.some(week => week.includes(task.date)));
                 
-                return dateTasks.map(task => this.transformToEntity(task));
+                return this.transformToTaskGroup(dateTasks);
             })
         )
     }
@@ -62,15 +62,37 @@ export class TaskService {
         return `${year}-${month}-${day}`;
     }
 
-    private transformToEntity(taskJson: TaskJson): Task {
-        const dateParts = taskJson.date.split("-");
-        const year = parseInt(dateParts[0]);
-        const month = parseInt(dateParts[1]);
-        const day = parseInt(dateParts[2]);
+    private transformToTaskGroup(tasksJson: TaskJson[]): TaskGroup[] {
+        let taskGroups: TaskGroup[] = [];
 
+        for(let taskJson of tasksJson) {
+            const dateStringParts = taskJson.date.split('-');
+            const year = parseInt(dateStringParts[0]);
+            const month = parseInt(dateStringParts[1]);
+            const day = parseInt(dateStringParts[2]);
+            const dateGroup = this.dateHelper.buildDate(year, month, day);
+
+            let group = taskGroups.filter(taskGroup => this.dateHelper.isEqualDate(dateGroup, taskGroup.date))[0];
+
+            if(!group) {
+                group = { date: dateGroup, tasks: [] }
+                group.tasks.push(this.transformToTask(taskJson));
+                taskGroups.push(group);
+            } else {
+                taskGroups.some(taskGroup => {
+                    if(!(this.dateHelper.isEqualDate(dateGroup, taskGroup.date))) return false;
+                    taskGroup.tasks.push(this.transformToTask(taskJson));
+                    return true;
+                })
+            }
+        }
+
+        return taskGroups;
+    }
+
+    private transformToTask(taskJson: TaskJson): Task {
         return {
             title: taskJson.title,
-            date: this.dateHelper.buildDate(year, month, day),
             startTime: taskJson.startTime,
             endTime: taskJson.endTime,
             color: taskJson.color,

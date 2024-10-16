@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 
 import { TaskService, UrlDateService } from '../../core/index-service';
 import { DateHelper } from '../../core/index-util';
-import { Task } from '../../core/index-model';
+import { Task, TaskGroup } from '../../core/index-model';
 
 @Component({
   selector: 'app-month-container',
@@ -15,11 +15,12 @@ import { Task } from '../../core/index-model';
 export class MonthContainerComponent implements OnInit, OnDestroy {
   weekDayNames: string[] = [];
   calendarDates: Date[][] = [];
-  tasks: Task[] = []
+  taskGroups: TaskGroup[] = []
   currentDate = new Date();
   
   dateHelper: DateHelper = new DateHelper();
   urlDateSub: Subscription = new Subscription();
+  taskSub: Subscription = new Subscription();
 
   constructor(
     private urlDateSrv: UrlDateService,
@@ -30,14 +31,15 @@ export class MonthContainerComponent implements OnInit, OnDestroy {
     this.urlDateSub = this.urlDateSrv.getDateFromUrlObservable().subscribe(date => {
       this.calendarDates = this.dateHelper.getMonthForDate(date);
       this.weekDayNames = this.dateHelper.getWeekDayNames(this.calendarDates[0]);
-      this.taskSrv.getTaskOfMonth(date).subscribe(tasks => {
-        this.tasks = tasks;
+      this.taskSub = this.taskSrv.getTaskOfMonth(date).subscribe(tasks => {
+        this.taskGroups = tasks;
       });
     });
   }
 
   ngOnDestroy(): void {
     if(this.urlDateSub) this.urlDateSub.unsubscribe();
+    if(this.taskSub) this.taskSub.unsubscribe();
   }
 
   public isCurrentDay(selectedDate: Date): boolean {
@@ -47,15 +49,9 @@ export class MonthContainerComponent implements OnInit, OnDestroy {
     return current.year == date.year && current.month == date.month && current.day == date.day;
   }
 
-  public filterTasks(date: Date): Task[] {
-    return this.tasks.filter(task => this.isEqualDate(task.date,date));
-  }
-
-  private isEqualDate(day1: Date, day2: Date): boolean {
-    const isEqualYear = day1.getFullYear() == day2.getFullYear();
-    const isEqualMonth = day1.getMonth() == day2.getMonth();
-    const isEqualDay = day1.getDate() == day2.getDate();
-
-    return isEqualDay && isEqualMonth && isEqualYear;
+  public filterForDate(date: Date): Task[] {
+    const tasks = this.taskGroups.filter(group => this.dateHelper.isEqualDate(date, group.date));
+    if(tasks.length <= 0) return [];
+    return tasks[0].tasks;
   }
 }
