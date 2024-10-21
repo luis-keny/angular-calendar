@@ -4,11 +4,12 @@
             <div class="week__name">{{name}}</div>
         }
     </div>
-    <div class="month" [style]="'grid-template-rows: repeat('+calendarDates.length+',1fr);'">
+    <div #MonthContainer class="month" [style]="'grid-template-rows: repeat('+calendarDates.length+',1fr);'">
         @for (dates of calendarDates; track $index) {
             <div class="month__row">
                 @for (date of dates; track $index) {
-                    <div class="month__day">
+                    <div class="month__day" #DayElement>
+                        <span style="display: none;">{{date}}</span>
                         <p class="day__number" [class]="isCurrentDay(date) ?  'active' : ''"><span>{{ date.getDate() }}</span></p>
                         <div class="event">
                             @for (task of filterForDate(date); track $index) {
@@ -19,8 +20,8 @@
                                         <span class="event__name">{{ task.title }}</span>
                                     </p>
                                 }@else if(filterForDate(date).length > 2 && $index == 2) {
-                                    <div class="event--more">
-                                        <span>{{ filterForDate(date).length - 2 }} more</span>
+                                    <div class="event--more" (click)="popoverActive(date)">
+                                        {{ filterForDate(date).length - 2 }} more
                                     </div>
                                 }
                             }
@@ -28,6 +29,13 @@
                     </div>
                 }
             </div>
+        }
+        @if (monthContainer && selectedElement) {
+            <app-popover
+                [parentElement]="monthContainer"
+                [childElement]="selectedElement"
+                [date]="selectedDate"
+            ></app-popover>
         }
     </div>
 </section>

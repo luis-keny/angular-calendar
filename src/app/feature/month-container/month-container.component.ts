@@ -1,5 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Subscription } from 'rxjs';
+
+import { PopoverComponent } from '../../shared/components/popover/popover.component';
 
 import { TaskService, UrlDateService } from '../../core/index-service';
 import { DateHelper } from '../../core/index-util';
@@ -10,13 +12,18 @@ import { Task, TaskGroup } from '../../core/index-model';
   templateUrl: './month-container.component.html',
   styleUrl: './month-container.component.css',
   standalone: true,
-  imports: [],
+  imports: [PopoverComponent],
 })
 export class MonthContainerComponent implements OnInit, OnDestroy {
+  @ViewChildren('DayElement') dayElements!: QueryList<ElementRef>;
+  @ViewChild('MonthContainer') monthContainer!: ElementRef;
+  selectedElement: ElementRef | undefined;
+
   weekDayNames: string[] = [];
   calendarDates: Date[][] = [];
   taskGroups: TaskGroup[] = []
   currentDate = new Date();
+  selectedDate: Date = new Date();
   
   dateHelper: DateHelper = new DateHelper();
   urlDateSub: Subscription = new Subscription();
@@ -42,6 +49,13 @@ export class MonthContainerComponent implements OnInit, OnDestroy {
     if(this.taskSub) this.taskSub.unsubscribe();
   }
 
+  @HostListener('click', ['$event'])
+  resetPoper($event: any) {
+    if($event.target.className != 'event--more') {
+      this.selectedElement = undefined;
+    }
+  }
+
   public isCurrentDay(selectedDate: Date): boolean {
     const current = this.dateHelper.getDateParts(this.currentDate);
     const date = this.dateHelper.getDateParts(selectedDate);
@@ -53,5 +67,13 @@ export class MonthContainerComponent implements OnInit, OnDestroy {
     const tasks = this.taskGroups.filter(group => this.dateHelper.isEqualDate(date, group.date));
     if(tasks.length <= 0) return [];
     return tasks[0].tasks;
+  }
+
+  public popoverActive(date: Date) {
+    const dayElement = this.dayElements.filter(element => 
+      element.nativeElement.children[0].textContent == date.toString()
+    )[0];
+    this.selectedElement = dayElement;
+    this.selectedDate = date;
   }
 }
