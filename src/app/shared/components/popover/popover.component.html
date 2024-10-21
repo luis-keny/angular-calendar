@@ -1,0 +1,11 @@
+<div class="popover" [style]="'top: ' + top + '; left: ' + left + '; max-width: ' + width">
+    <h4>{{ group.date.toString().split(" ")[0] }}</h4>
+    <h4>{{ group.date.getDate() }}</h4>
+    @for (task of group.tasks; track $index) {
+        <p class="event__content">
+            <span class="circle" [style]="'background-color: ' + (task.color ?? 'var(--color-900)')"></span>
+            <span class="event__time">{{ task.startTime }}</span>
+            <span class="event__name">{{ task.title }}</span>
+        </p>
+    }
+</div>

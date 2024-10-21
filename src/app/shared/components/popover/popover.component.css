@@ -1,0 +1,44 @@
+.popover {
+    position: absolute;
+    background-color: #fff;
+    z-index: 800;
+    box-shadow: 0 0 5px #00000079;
+    padding: 0.5rem;
+    border-radius: 0.4rem;
+    -webkit-border-radius: 0.4rem;
+    -moz-border-radius: 0.4rem;
+    -ms-border-radius: 0.4rem;
+    -o-border-radius: 0.4rem;
+}
+
+.popover h4 {
+    text-align: center;
+}
+
+.event__content {
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto auto 1fr;
+    gap: 0.2rem;
+}
+
+.circle {
+    height: 0.5rem;
+    width: 0.5rem;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.event__time {
+    font-weight: 400;
+    color: var(--color-400);
+}
+
+.event__name {
+    overflow: hidden;
+    text-wrap: nowrap;
+    font-weight: 500;
+}
