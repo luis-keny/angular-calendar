@@ -1,6 +1,6 @@
 <div class="content__event">
     <div class="moment"
-        [style]="'top: ' + getTopOfCurrentMoment() + ';' + (isEqualDate(dateSelected, currentMoment) ? '':'display: none;')">
+        [style]="defineStyles(dateSelected, currentMoment)"> 
         <div class="moment__circle"></div>
         <div class="moment__line"></div>
     </div>

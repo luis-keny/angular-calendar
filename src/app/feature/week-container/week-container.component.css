@@ -18,6 +18,10 @@
     padding-right: var(--width-scroll);
 }
 
+.content {
+    box-shadow: 4px 2px 10px -10px color-mix(in srgb, var(--color-700), transparent 20%);
+}
+
 .week,
 .week__content {
     display: grid;
@@ -34,14 +38,16 @@
 }
 
 .day__number {
-    padding: 0.3rem;
-    font-size: 2rem;
-    width: fit-content;
-    border-radius: 2rem;
-    -webkit-border-radius: 2rem;
-    -moz-border-radius: 2rem;
-    -ms-border-radius: 2rem;
-    -o-border-radius: 2rem;
+    font-size: 32px;
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    -webkit-border-radius: 999px;
+    -moz-border-radius: 999px;
+    -ms-border-radius: 999px;
+    -o-border-radius: 999px;
 }
 
 .day__number.active {

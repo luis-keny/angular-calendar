@@ -28,7 +28,13 @@
                                 [heightPerHours]="2.5"
                                 [unitOfMeasure]="'rem'"
                                 [taskGroup]="taskGroups[$index]"
-                                [dateSelected]="taskGroups[$index].date"
+                                [dateSelected]="customDate"
+                            ></app-event-custom>
+                        } @else {
+                            <app-event-custom 
+                                [heightPerHours]="2.5"
+                                [unitOfMeasure]="'rem'"
+                                [dateSelected]="customDate"
                             ></app-event-custom>
                         }
                     </div>

@@ -13,8 +13,8 @@ import { CalendarTaskDirective } from '../../../core/index-directive';
 export class EventCustomComponent implements OnInit {
   @Input({ required: true }) heightPerHours!: number;
   @Input({ required: true }) unitOfMeasure!: string;
-  @Input({ required: true }) taskGroup: TaskGroup = {date: new Date(), tasks: []};
   @Input({ required: true }) dateSelected!: Date;
+  @Input() taskGroup: TaskGroup = {date: this.dateSelected, tasks: []};
 
   currentMoment: Date = new Date();
 
@@ -40,7 +40,12 @@ export class EventCustomComponent implements OnInit {
     const isEqualYear = day1.getFullYear() == day2.getFullYear();
     const isEqualMonth = day1.getMonth() == day2.getMonth();
     const isEqualDay = day1.getDate() == day2.getDate();
-
     return isEqualDay && isEqualMonth && isEqualYear;
+  }
+
+  public defineStyles(dateSelected: Date, currentMoment: Date): string {
+    const currentDate = this.isEqualDate(dateSelected, currentMoment);
+    if(!currentDate) return 'display: none;'
+    return `top:${this.getTopOfCurrentMoment()};`
   }
 }
