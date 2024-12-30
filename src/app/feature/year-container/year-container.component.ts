@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { UrlDateService } from '../../core/index-service';
-import { DateHelper } from '../../core/index-util';
-import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+
+import { UrlDateService } from '@core/index-service';
+import { DateHelper } from '@core/index-util';
 
 @Component({
   selector: 'app-year-container',

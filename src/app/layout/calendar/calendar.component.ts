@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { CalendarView } from '../../core/index-model';
-import { DateHelper } from '../../core/index-util';
-import { UrlDateService } from '../../core/index-service';
+import { CalendarView } from '@core/index-model';
+import { DateHelper } from '@core/index-util';
+import { UrlDateService } from '@core/index-service';
 
 @Component({
   selector: 'app-calendar',

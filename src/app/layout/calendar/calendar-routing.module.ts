@@ -9,19 +9,19 @@ const routes: Routes = [
     children: [
       {
         path: 'day/:year/:month/:day',
-        loadComponent: () => import('../../feature/day-container/day-container.component').then(m => m.DayContainerComponent)
+        loadComponent: () => import('@feature/day-container/day-container.component').then(m => m.DayContainerComponent)
       },
       {
         path: 'week/:year/:month/:day',
-        loadComponent: () => import('../../feature/week-container/week-container.component').then(m => m.WeekContainerComponent)
+        loadComponent: () => import('@feature/week-container/week-container.component').then(m => m.WeekContainerComponent)
       },
       {
         path: 'month/:year/:month/:day',
-        loadComponent: () => import('../../feature/month-container/month-container.component').then(m => m.MonthContainerComponent)
+        loadComponent: () => import('@feature/month-container/month-container.component').then(m => m.MonthContainerComponent)
       },
       {
         path: 'year/:year/:month/:day',
-        loadComponent: () => import('../../feature/year-container/year-container.component').then(m => m.YearContainerComponent)
+        loadComponent: () => import('@feature/year-container/year-container.component').then(m => m.YearContainerComponent)
       },
       {
         path: '',

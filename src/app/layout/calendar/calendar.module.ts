@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CalendarRoutingModule } from './calendar-routing.module';
 import { CalendarComponent } from './calendar.component';
 import { SelectCustomComponent } from './components/select-custom/select-custom.component';
-import { MonthYearPipe } from '../../core/pipe/month-year.pipe';
+import { MonthYearPipe } from '@core/pipe/month-year.pipe';
 
 
 @NgModule({

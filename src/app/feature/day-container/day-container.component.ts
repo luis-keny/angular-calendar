@@ -2,11 +2,11 @@ import { Component, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { YearContainerComponent } from '../year-container/year-container.component';
-import { EventCustomComponent } from '../../shared/components/event-custom/event-custom.component';
+import { EventCustomComponent } from '@shared/components/event-custom/event-custom.component';
 
-import { ModalService, TaskService, UrlDateService } from '../../core/index-service';
-import { ModalConfig, Task, TaskGroup } from '../../core/index-model';
-import { DateHelper } from '../../core/index-util';
+import { ModalService, TaskService, UrlDateService } from '@core/index-service';
+import { ModalConfig, TaskGroup } from '@core/index-model';
+import { DateHelper } from '@core/index-util';
 
 @Component({
   selector: 'app-day-container',

@@ -1,11 +1,11 @@
 import { Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { PopoverComponent } from '../../shared/components/popover/popover.component';
+import { PopoverComponent } from '@shared/components/popover/popover.component';
 
-import { TaskService, UrlDateService } from '../../core/index-service';
-import { DateHelper } from '../../core/index-util';
-import { Task, TaskGroup } from '../../core/index-model';
+import { TaskService, UrlDateService } from '@core/index-service';
+import { DateHelper } from '@core/index-util';
+import { Task, TaskGroup } from '@core/index-model';
 
 @Component({
   selector: 'app-month-container',

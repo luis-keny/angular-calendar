@@ -2,11 +2,11 @@ import { Component, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { YearContainerComponent } from '../year-container/year-container.component';
-import { EventCustomComponent } from '../../shared/components/event-custom/event-custom.component';
+import { EventCustomComponent } from '@shared/components/event-custom/event-custom.component';
 
-import { ModalConfig, Task, TaskGroup } from '../../core/index-model';
-import { ModalService, TaskService, UrlDateService } from '../../core/index-service';
-import { DateHelper } from '../../core/index-util';
+import { ModalConfig, Task, TaskGroup } from '@core/index-model';
+import { ModalService, TaskService, UrlDateService } from '@core/index-service';
+import { DateHelper } from '@core/index-util';
 
 @Component({
   selector: 'app-week-container',

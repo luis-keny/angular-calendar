@@ -20,6 +20,7 @@
     "@angular/router": "^18.1.0",
     "@fontsource-variable/onest": "^5.1.0",
     "rxjs": "~7.8.0",
+    "standard": "^17.1.2",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
   },
@@ -35,5 +36,8 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.5.2"
+  },
+  "eslintConfig": {
+    "extends": ["standard"]
   }
 }
