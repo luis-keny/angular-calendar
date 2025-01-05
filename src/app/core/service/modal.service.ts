@@ -1,7 +1,8 @@
 import { Injectable, ComponentRef, EnvironmentInjector, ViewContainerRef } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { ModalCustomComponent } from '../../shared/components/modal-custom/modal-custom.component';
-import { ModalConfig } from '../model/modal';
+
+import { ModalCustomComponent } from '@shared/components/modal-custom/modal-custom.component';
+import { ModalConfig } from '../data/system/modal';
 
 @Injectable({
   providedIn: 'root'

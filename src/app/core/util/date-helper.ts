@@ -1,4 +1,5 @@
-import { CalendarView, DateParts } from "../index-model";
+import { CalendarView } from "@core/data/adapters/calendarView";
+import { DateParts } from "@core/data/adapters/date";
 
 export class DateHelper {
     private date: Date = new Date();
@@ -212,5 +213,12 @@ export class DateHelper {
         const isEqualDay = day1.getDate() == day2.getDate();
     
         return isEqualDay && isEqualMonth && isEqualYear;
+    }
+
+    public dateToStringFormat(date: Date): string {
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2,'0');
+        const day = (date.getDate()).toString().padStart(2,'0');
+        return `${year}-${month}-${day}`;
     }
 }

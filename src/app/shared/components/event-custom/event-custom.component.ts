@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TaskGroup } from '@core/index-model';
-import { CalendarTaskDirective } from '@core/index-directive';
+
+import { TaskGroup } from '@core/data/adapters/task';
+import { CalendarTaskDirective } from '@core/directive/calendar-task.directive';
+
 
 @Component({
   selector: 'app-event-custom',

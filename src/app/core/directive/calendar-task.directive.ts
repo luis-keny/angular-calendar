@@ -1,5 +1,6 @@
 import { Directive, ElementRef, Input, OnChanges, Renderer2 } from '@angular/core';
-import { Task } from '../index-model';
+
+import { Task } from '@core/data/adapters/task';
 
 @Directive({
   selector: '[appCalendarTask]',

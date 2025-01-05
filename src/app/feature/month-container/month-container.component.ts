@@ -3,9 +3,11 @@ import { Subscription } from 'rxjs';
 
 import { PopoverComponent } from '@shared/components/popover/popover.component';
 
-import { TaskService, UrlDateService } from '@core/index-service';
-import { DateHelper } from '@core/index-util';
-import { Task, TaskGroup } from '@core/index-model';
+import { Task, TaskGroup } from '@core/data/adapters/task';
+import { DateHelper } from '@core/util/date-helper';
+import { UrlDateService } from '@core/service/url-date.service';
+import { TaskService } from '@core/service/task.service';
+
 
 @Component({
   selector: 'app-month-container',

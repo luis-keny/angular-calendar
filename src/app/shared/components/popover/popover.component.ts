@@ -2,8 +2,8 @@ import { Component, ElementRef, Input, OnChanges, OnDestroy } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 
-import { TaskGroup } from '@core/index-model';
-import { TaskService } from '@core/index-service';
+import { TaskGroup } from '@core/data/adapters/task';
+import { TaskService } from '@core/service/task.service';
 
 @Component({
   selector: 'app-popover',

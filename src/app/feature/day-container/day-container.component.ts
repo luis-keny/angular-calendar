@@ -4,9 +4,12 @@ import { Subscription } from 'rxjs';
 import { YearContainerComponent } from '../year-container/year-container.component';
 import { EventCustomComponent } from '@shared/components/event-custom/event-custom.component';
 
-import { ModalService, TaskService, UrlDateService } from '@core/index-service';
-import { ModalConfig, TaskGroup } from '@core/index-model';
-import { DateHelper } from '@core/index-util';
+import { DateHelper } from '@core/util/date-helper';
+import { TaskGroup } from '@core/data/adapters/task';
+import { ModalService } from '@core/service/modal.service';
+import { UrlDateService } from '@core/service/url-date.service';
+import { TaskService } from '@core/service/task.service';
+import { ModalConfig } from '@core/data/system/modal';
 
 @Component({
   selector: 'app-day-container',

@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DateHelper } from '../index-util';
-import { CalendarView } from '../index-model';
+
+import { CalendarView } from '@core/data/adapters/calendarView';
+import { DateHelper } from '@core/util/date-helper';
 
 @Pipe({
   name: 'monthYear'
