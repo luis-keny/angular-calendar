@@ -7,6 +7,33 @@
     -moz-border-radius: 0.5rem;
     -ms-border-radius: 0.5rem;
     -o-border-radius: 0.5rem;
+    transition: background-color .2s;
+    -webkit-transition: background-color .2s;
+    -moz-transition: background-color .2s;
+    -ms-transition: background-color .2s;
+    -o-transition: background-color .2s;
+}
+
+.btn__flat--primary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--color-50);
+    border: none;
+    background-color: var(--color-500);
+}
+
+.btn__flat--primary:hover {
+    background-color: var(--color-600);
+}
+
+.btn__flat--primary:active {
+    background-color: var(--color-700);
+}
+
+.btn__flat--primary:disabled {
+    background-color: var(--color-100);
+    color: var(--color-400);
 }
 
 .btn__outline--primary {
