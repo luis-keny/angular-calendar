@@ -1,0 +1,23 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form__group">
+        <label for="title">Title</label>
+        <input type="text" formControlName="title" id="title">
+    </div>
+    <div class="form__row">
+        <div class="form__group">
+            <label for="startTime">Start time</label>
+            <input type="time" formControlName="startTime" id="startTime">
+        </div>
+        <div class="form__group">
+            <label for="endTime">End time</label>
+            <input type="time" formControlName="endTime" id="endTime">
+        </div>
+        <div class="form__group">
+            <input type="color" formControlName="color" id="color">
+        </div>
+    </div>
+    <div class="btn__group">
+        <button class="btn btn__outline--primary">Cancel</button>
+        <button class="btn btn__flat--primary" type="submit" [disabled]="form.invalid">Add</button>
+    </div>
+</form>

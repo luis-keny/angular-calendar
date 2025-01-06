@@ -1,0 +1,40 @@
+form {
+    display: grid;
+    gap: 8px;
+}
+
+input[type="color"] {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+input[type="time"],
+input[type="text"] {
+    padding: 8px;
+    outline: none;
+    border: 1px solid var(--color-900);
+    color: var(--color-900);
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+
+.form__group {
+    display: grid;
+    gap: 4px;
+}
+
+.form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 8px;
+}
+
+.btn__group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}

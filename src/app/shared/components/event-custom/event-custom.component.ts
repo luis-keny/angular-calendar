@@ -1,11 +1,12 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { TaskGroup } from '@core/data/adapters/task';
+import { Task, TaskGroup } from '@core/data/adapters/task';
 import { CalendarTaskDirective } from '@core/directive/calendar-task.directive';
 import { ModalService } from '@core/service/modal.service';
 import { DateHelper } from '@core/util/date-helper';
-import { YearContainerComponent } from '@feature/year-container/year-container.component';
+
+import { EventFormComponent } from '../event-form/event-form.component';
 
 
 @Component({
@@ -43,7 +44,7 @@ export class EventCustomComponent implements OnInit {
         this.positionCalculated.emit(top);
       }
     });
-    
+    this.taskGroup.date = this.dateSelected;
   }
 
   public getTopOfCurrentMoment(): string {
@@ -65,7 +66,16 @@ export class EventCustomComponent implements OnInit {
   public activeModal() {
     this.modalService.openModal({
       title: 'Add event',
-      component: YearContainerComponent,
+      component: EventFormComponent,
+    }).subscribe(() => {
+      const taskString = localStorage.getItem('task');
+      
+      if(!taskString) return;
+      
+      const task: Task = JSON.parse(taskString);
+      this.taskGroup.tasks.push(task);
+      
+      localStorage.removeItem('task');
     })
   }
 }

@@ -4,6 +4,10 @@
     width: 98%;
 }
 
+.h-full {
+    height: 100%;
+}
+
 .moment {
     position: absolute;
     z-index: 10;
