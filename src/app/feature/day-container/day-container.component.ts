@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { YearContainerComponent } from '../year-container/year-container.component';
@@ -19,6 +19,8 @@ import { ModalConfig } from '@core/data/system/modal';
   imports: [EventCustomComponent],
 })
 export class DayContainerComponent implements OnInit, OnDestroy {
+  @ViewChild('contentContainer') contentContainer!: ElementRef<HTMLDivElement>;
+  
   dateHelper: DateHelper = new DateHelper(new Date());
   customDate: Date = new Date();
   currentDate = new Date();
@@ -66,9 +68,14 @@ export class DayContainerComponent implements OnInit, OnDestroy {
   }
 
   public isCurrentDay(customDay: Date): boolean {
-    let current = this.dateHelper.getDateParts(this.currentDate)
-    let custom = this.dateHelper.getDateParts(customDay)
+    return this.dateHelper.isEqualDate(this.currentDate, customDay);
+  }
 
-    return current.year == custom.year && current.month == custom.month && current.day == custom.day;
+  public scrollToMoment(top: number): void {
+    const container = this.contentContainer.nativeElement;
+    container.scrollTo({
+      top: top - container.offsetHeight / 2,
+      behavior: 'smooth',
+    });
   }
 }

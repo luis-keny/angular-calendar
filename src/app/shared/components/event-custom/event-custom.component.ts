@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { TaskGroup } from '@core/data/adapters/task';
 import { CalendarTaskDirective } from '@core/directive/calendar-task.directive';
+import { DateHelper } from '@core/util/date-helper';
 
 
 @Component({
@@ -18,7 +19,10 @@ export class EventCustomComponent implements OnInit {
   @Input({ required: true }) dateSelected!: Date;
   @Input() taskGroup: TaskGroup = {date: this.dateSelected, tasks: []};
 
+  @Output() positionCalculated = new EventEmitter<number>();
+  @ViewChild('momentIndicator') momentIndicator!: ElementRef<HTMLDivElement>;
   currentMoment: Date = new Date();
+  dateHelper: DateHelper = new DateHelper();
 
   constructor() { }
 
@@ -26,6 +30,16 @@ export class EventCustomComponent implements OnInit {
     setInterval(() => {
       this.currentMoment = new Date();
     }, 60 * 1000);
+    
+    
+    setTimeout(() => {
+      const isCurrentDate = this.dateHelper.isEqualDate(this.currentMoment, this.dateSelected);
+      if (isCurrentDate) {
+        const top = this.momentIndicator.nativeElement.offsetTop;
+        this.positionCalculated.emit(top);
+      }
+    });
+    
   }
 
   public getTopOfCurrentMoment(): string {
@@ -38,16 +52,9 @@ export class EventCustomComponent implements OnInit {
     return `calc(${top + this.unitOfMeasure} - 0.4rem)`;
   }
 
-  public isEqualDate(day1: Date, day2: Date): boolean {
-    const isEqualYear = day1.getFullYear() == day2.getFullYear();
-    const isEqualMonth = day1.getMonth() == day2.getMonth();
-    const isEqualDay = day1.getDate() == day2.getDate();
-    return isEqualDay && isEqualMonth && isEqualYear;
-  }
-
   public defineStyles(dateSelected: Date, currentMoment: Date): string {
-    const currentDate = this.isEqualDate(dateSelected, currentMoment);
-    if(!currentDate) return 'display: none;'
+    const isCurrentDate = this.dateHelper.isEqualDate(dateSelected, currentMoment);
+    if(!isCurrentDate) return 'display: none;'
     return `top:${this.getTopOfCurrentMoment()};`
   }
 }

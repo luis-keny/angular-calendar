@@ -7,7 +7,7 @@
             <span class="date__void"></span>
         </div>
     </div>
-    <div class="content content--event">
+    <div class="content content--event" #contentContainer>
         <ul class="time">
             @for (hour of hours; track $index) {
                 <li class="time__item">
@@ -23,6 +23,7 @@
                     [unitOfMeasure]="'rem'"
                     [taskGroup]="taskGroup"
                     [dateSelected]="customDate"
+                    (positionCalculated)="scrollToMoment($event)"
                 ></app-event-custom>
             </div>
         </div>

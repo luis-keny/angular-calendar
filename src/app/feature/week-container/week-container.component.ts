@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { YearContainerComponent } from '../year-container/year-container.component';
@@ -20,6 +20,8 @@ import { ModalConfig } from '@core/data/system/modal';
   imports: [EventCustomComponent],
 })
 export class WeekContainerComponent implements OnInit, OnDestroy {
+  @ViewChild('contentContainer') contentContainer!: ElementRef<HTMLDivElement>;
+
   dateHelper: DateHelper = new DateHelper();
   customDates: Date[] = [];
   currentDate = new Date();
@@ -67,17 +69,14 @@ export class WeekContainerComponent implements OnInit, OnDestroy {
   }
 
   public isCurrentDay(customDay: Date): boolean {
-    let current = this.dateHelper.getDateParts(this.currentDate)
-    let custom = this.dateHelper.getDateParts(customDay)
-
-    return current.year == custom.year && current.month == custom.month && current.day == custom.day;
+    return this.dateHelper.isEqualDate(this.currentDate, customDay);
   }
 
-  private isEqualDate(day1: Date, day2: Date): boolean {
-    const isEqualYear = day1.getFullYear() == day2.getFullYear();
-    const isEqualMonth = day1.getMonth() == day2.getMonth();
-    const isEqualDay = day1.getDate() == day2.getDate();
-
-    return isEqualDay && isEqualMonth && isEqualYear;
+  public scrollToMoment(top: number): void {
+    const container = this.contentContainer.nativeElement;
+    container.scrollTo({
+      top: top - container.offsetHeight / 2,
+      behavior: 'smooth',
+    });
   }
 }

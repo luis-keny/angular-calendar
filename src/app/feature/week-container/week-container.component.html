@@ -11,7 +11,7 @@
             }
         </div>
     </div>
-    <div class="content content--event">
+    <div class="content content--event" #contentContainer>
         <ul class="time">
             @for (hour of hours; track $index) {
                 <li class="time__item">
@@ -29,12 +29,14 @@
                                 [unitOfMeasure]="'rem'"
                                 [taskGroup]="taskGroups[$index]"
                                 [dateSelected]="customDate"
+                                (positionCalculated)="scrollToMoment($event)"
                             ></app-event-custom>
                         } @else {
                             <app-event-custom 
                                 [heightPerHours]="2.5"
                                 [unitOfMeasure]="'rem'"
                                 [dateSelected]="customDate"
+                                (positionCalculated)="scrollToMoment($event)"
                             ></app-event-custom>
                         }
                     </div>
