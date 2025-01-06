@@ -3,7 +3,9 @@ import { FormsModule } from '@angular/forms';
 
 import { TaskGroup } from '@core/data/adapters/task';
 import { CalendarTaskDirective } from '@core/directive/calendar-task.directive';
+import { ModalService } from '@core/service/modal.service';
 import { DateHelper } from '@core/util/date-helper';
+import { YearContainerComponent } from '@feature/year-container/year-container.component';
 
 
 @Component({
@@ -24,7 +26,9 @@ export class EventCustomComponent implements OnInit {
   currentMoment: Date = new Date();
   dateHelper: DateHelper = new DateHelper();
 
-  constructor() { }
+  constructor(
+    private modalService: ModalService,
+  ) { }
 
   ngOnInit(): void {
     setInterval(() => {
@@ -56,5 +60,12 @@ export class EventCustomComponent implements OnInit {
     const isCurrentDate = this.dateHelper.isEqualDate(dateSelected, currentMoment);
     if(!isCurrentDate) return 'display: none;'
     return `top:${this.getTopOfCurrentMoment()};`
+  }
+
+  public activeModal() {
+    this.modalService.openModal({
+      title: 'Add event',
+      component: YearContainerComponent,
+    })
   }
 }

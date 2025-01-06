@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { CalendarView } from '@core/data/adapters/calendarView';
 import { UrlDateService } from '@core/service/url-date.service';
 import { DateHelper } from '@core/util/date-helper';
+import { ModalService } from '@core/service/modal.service';
 
 
 @Component({
@@ -22,9 +23,12 @@ export class CalendarComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private urlDateSrv: UrlDateService,
+    private containerRef: ViewContainerRef,
+    private modalSrv: ModalService,
   ) {}
 
   ngOnInit(): void {
+    this.modalSrv.initModal(this.containerRef);
     this.urlDateSub = this.urlDateSrv.getDateFromUrlObservable().subscribe(date => {
       this.customDate = date;
       this.dateHelper.updateDate(date);

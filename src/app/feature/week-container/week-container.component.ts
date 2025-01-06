@@ -32,7 +32,6 @@ export class WeekContainerComponent implements OnInit, OnDestroy {
 
   constructor(
     private modalSrv: ModalService,
-    private viewContainerRef: ViewContainerRef,
     private urlDateSrv: UrlDateService,
     private taskSrv: TaskService,
   ) {
@@ -65,7 +64,7 @@ export class WeekContainerComponent implements OnInit, OnDestroy {
       component: YearContainerComponent,
       title: 'Add event'
     }
-    this.modalSrv.openModal(this.viewContainerRef, configureModal);
+    this.modalSrv.openModal(configureModal);
   }
 
   public isCurrentDay(customDay: Date): boolean {

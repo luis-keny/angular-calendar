@@ -9,15 +9,19 @@ import { ModalConfig } from '../data/system/modal';
 })
 export class ModalService {
   private modalRef: ComponentRef<ModalCustomComponent> | null = null;
+  private modalCloseSubject = new Subject<any>();
+  private viewContainerRef!: ViewContainerRef;
 
   constructor(
     private environmentInjector: EnvironmentInjector
   ) { }
 
-  private modalCloseSubject = new Subject<any>();
+  public initModal(ref: ViewContainerRef) {
+    this.viewContainerRef = ref;
+  }
 
-  public openModal(viewContainerRef: ViewContainerRef, modalConfig: ModalConfig): Observable<any> {
-    this.modalRef = viewContainerRef.createComponent(ModalCustomComponent, {
+  public openModal(modalConfig: ModalConfig): Observable<any> {
+    this.modalRef = this.viewContainerRef.createComponent(ModalCustomComponent, {
       environmentInjector: this.environmentInjector
     });
 
