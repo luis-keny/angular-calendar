@@ -1,15 +1,12 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { YearContainerComponent } from '../year-container/year-container.component';
 import { EventCustomComponent } from '@shared/components/event-custom/event-custom.component';
 
 import { DateHelper } from '@core/util/date-helper';
 import { TaskGroup } from '@core/data/adapters/task';
-import { ModalService } from '@core/service/modal.service';
 import { UrlDateService } from '@core/service/url-date.service';
 import { TaskService } from '@core/service/task.service';
-import { ModalConfig } from '@core/data/system/modal';
 
 
 @Component({
@@ -31,7 +28,6 @@ export class WeekContainerComponent implements OnInit, OnDestroy {
   taskSub: Subscription = new Subscription();
 
   constructor(
-    private modalSrv: ModalService,
     private urlDateSrv: UrlDateService,
     private taskSrv: TaskService,
   ) {
@@ -57,14 +53,6 @@ export class WeekContainerComponent implements OnInit, OnDestroy {
       let hourString = i.toString().padStart(2,'0') + ":00";
       this.hours.push(hourString);
     }
-  }
-
-  public modalOpen() {
-    const configureModal: ModalConfig = {
-      component: YearContainerComponent,
-      title: 'Add event'
-    }
-    this.modalSrv.openModal(configureModal);
   }
 
   public isCurrentDay(customDay: Date): boolean {

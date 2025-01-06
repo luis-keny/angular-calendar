@@ -24,7 +24,7 @@ export class CalendarTaskDirective implements OnChanges {
     const { height, top } = this.getTopAndHeight(startTime,endTime);
     const element = this.elementRef.nativeElement;
     const acceptableHeight = (this.heightPerHours*4)/5;
-    const backgroundColor = color ?? 'var(--color-900)';
+    const backgroundColor = color || 'var(--color-900)';
 
     this.render.setStyle(element, 'height', `calc( ${height} - 1px)`);
     this.render.setStyle(element, 'top', top);
