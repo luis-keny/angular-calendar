@@ -17,6 +17,7 @@ import { MonthYearPipe } from '@core/pipe/month-year.pipe';
     CommonModule,
     CalendarRoutingModule,
   ],
-  bootstrap: [CalendarComponent]
+  bootstrap: [CalendarComponent],
+  exports: [CalendarComponent,SelectCustomComponent,MonthYearPipe,]
 })
 export class CalendarModule { }
