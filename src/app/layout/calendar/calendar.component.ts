@@ -19,6 +19,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
   calendarView: CalendarView = this.getCalendarViewOfLocalStorage();
   urlDateSub: Subscription = new Subscription();
   dateHelper = new DateHelper(new Date());
+  baseUrl = ''
 
   constructor(
     private router: Router,
@@ -29,6 +30,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.modalSrv.initModal(this.containerRef);
+    this.baseUrl = this.router.url.split('/').slice(0, -1).join('/');
     this.urlDateSub = this.urlDateSrv.getDateFromUrlObservable().subscribe(date => {
       this.customDate = date;
       this.dateHelper.updateDate(date);
@@ -46,10 +48,10 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   private navigateByView(view: CalendarView) {
     const { day, month, year } = this.dateHelper.getDateParts();
-    if(view === 'day') this.router.navigate(['calendar/day', year, month, day]);
-    if(view === 'week') this.router.navigate(['calendar/week', year, month, day]);
-    if(view === 'month') this.router.navigate(['calendar/month', year, month, day]);
-    if(view === 'year') this.router.navigate(['calendar/year', year, month, day]);
+    if(view === 'day') this.router.navigate([`${this.baseUrl}/day`, year, month, day]);
+    if(view === 'week') this.router.navigate([`${this.baseUrl}/week`, year, month, day]);
+    if(view === 'month') this.router.navigate([`${this.baseUrl}/month`, year, month, day]);
+    if(view === 'year') this.router.navigate([`${this.baseUrl}/year`, year, month, day]);
   }
 
   public updateViewCalendar(view: CalendarView) {
