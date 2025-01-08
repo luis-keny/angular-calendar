@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { CalendarView } from '@core/data/adapters/calendarView';
+import { CalendarView } from '@core/data/adapters/item-calendar';
 import { UrlDateService } from '@core/service/url-date.service';
 import { DateHelper } from '@core/util/date-helper';
 import { ModalService } from '@core/service/modal.service';

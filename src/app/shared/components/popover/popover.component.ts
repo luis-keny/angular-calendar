@@ -2,8 +2,8 @@ import { Component, ElementRef, Input, OnChanges, OnDestroy } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 
-import { TaskGroup } from '@core/data/adapters/task';
-import { TaskService } from '@core/service/task.service';
+import { GroupAppointmentEvent } from '@core/data/adapters/group-appointment-event';
+import { AppointmentService } from '@core/service/appointment.service';
 
 @Component({
   selector: 'app-popover',
@@ -17,24 +17,24 @@ export class PopoverComponent implements OnChanges, OnDestroy {
   @Input({ required: true }) childElement!: ElementRef;
   @Input({ required: true }) parentElement!: ElementRef;
 
-  group: TaskGroup = { date: new Date(), tasks: [] };
-  taskSub: Subscription = new Subscription();
+  group: GroupAppointmentEvent = { date: new Date(), appointments: [] };
+  appointmentSub: Subscription = new Subscription();
   
   top: string = '1rem';
   left: string = '5rem';
   width = '180px';
 
   constructor(
-    private taskSrv: TaskService,
+    private appointmentSrv: AppointmentService,
   ) { }
 
   ngOnChanges(): void {
-    this.taskSub = this.taskSrv.getTaskOfDay(this.date).subscribe(group => this.group = group);
+    this.appointmentSub = this.appointmentSrv.getOfDay(this.date).subscribe(group => this.group = group);
     this.definePosition();
   }
 
   ngOnDestroy(): void {
-    if(this.taskSub) this.taskSub.unsubscribe();
+    if(this.appointmentSub) this.appointmentSub.unsubscribe();
   }
 
   public definePosition(){

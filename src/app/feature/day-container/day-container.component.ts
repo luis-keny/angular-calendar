@@ -4,10 +4,9 @@ import { Subscription } from 'rxjs';
 import { EventCustomComponent } from '@shared/components/event-custom/event-custom.component';
 
 import { DateHelper } from '@core/util/date-helper';
-import { TaskGroup } from '@core/data/adapters/task';
-import { ModalService } from '@core/service/modal.service';
+import { GroupAppointmentEvent } from '@core/data/adapters/group-appointment-event';
 import { UrlDateService } from '@core/service/url-date.service';
-import { TaskService } from '@core/service/task.service';
+import { AppointmentService } from '@core/service/appointment.service';
 
 @Component({
   selector: 'app-day-container',
@@ -22,14 +21,14 @@ export class DayContainerComponent implements OnInit, OnDestroy {
   dateHelper: DateHelper = new DateHelper(new Date());
   customDate: Date = new Date();
   currentDate = new Date();
-  taskGroup: TaskGroup = { date: new Date(), tasks: [] };
+  group: GroupAppointmentEvent = { date: new Date(), appointments: [] };
   hours: string[] = [];
   urlDateSub: Subscription = new Subscription();
-  taskSub: Subscription = new Subscription();
+  appointmentSub: Subscription = new Subscription();
 
   constructor(
     private urlDateSrv: UrlDateService,
-    private taskSrv: TaskService,
+    private appointmentSrv: AppointmentService,
   ) {
     this.createHours();
   }
@@ -37,15 +36,15 @@ export class DayContainerComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.urlDateSub = this.urlDateSrv.getDateFromUrlObservable().subscribe(date => {
       this.customDate = date;
-      this.taskSub = this.taskSrv.getTaskOfDay(date).subscribe(task => {
-        this.taskGroup = task;
+      this.appointmentSub = this.appointmentSrv.getOfDay(date).subscribe(a => {
+        this.group = a;
       });
     });
   }
 
   ngOnDestroy(): void {
     if(this.urlDateSub) this.urlDateSub.unsubscribe();
-    if(this.taskSub) this.taskSub.unsubscribe();
+    if(this.appointmentSub) this.appointmentSub.unsubscribe();
   }
 
   private createHours() {

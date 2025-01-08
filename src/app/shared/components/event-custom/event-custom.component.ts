@@ -1,8 +1,8 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { Task, TaskGroup } from '@core/data/adapters/task';
-import { CalendarTaskDirective } from '@core/directive/calendar-task.directive';
+import { AppointmentEvent, GroupAppointmentEvent } from '@core/data/adapters/group-appointment-event';
+import { CalendarAppointmentDirective } from '@core/directive/calendar-appointment.directive';
 import { ModalService } from '@core/service/modal.service';
 import { DateHelper } from '@core/util/date-helper';
 
@@ -14,13 +14,13 @@ import { EventFormComponent } from '../event-form/event-form.component';
   templateUrl: './event-custom.component.html',
   styleUrl: './event-custom.component.css',
   standalone: true,
-  imports: [FormsModule, CalendarTaskDirective],
+  imports: [FormsModule, CalendarAppointmentDirective],
 })
 export class EventCustomComponent implements OnInit {
   @Input({ required: true }) heightPerHours!: number;
   @Input({ required: true }) unitOfMeasure!: string;
   @Input({ required: true }) dateSelected!: Date;
-  @Input() taskGroup: TaskGroup = {date: this.dateSelected, tasks: []};
+  @Input() group: GroupAppointmentEvent = {date: this.dateSelected, appointments: []};
 
   @Output() positionCalculated = new EventEmitter<number>();
   @ViewChild('momentIndicator') momentIndicator!: ElementRef<HTMLDivElement>;
@@ -44,7 +44,7 @@ export class EventCustomComponent implements OnInit {
         this.positionCalculated.emit(top);
       }
     });
-    this.taskGroup.date = this.dateSelected;
+    this.group.date = this.dateSelected;
   }
 
   public getTopOfCurrentMoment(): string {
@@ -68,14 +68,14 @@ export class EventCustomComponent implements OnInit {
       title: 'Add event',
       component: EventFormComponent,
     }).subscribe(() => {
-      const taskString = localStorage.getItem('task');
+      const appointmentEventString = localStorage.getItem('appointment-event');
       
-      if(!taskString) return;
+      if(!appointmentEventString) return;
       
-      const task: Task = JSON.parse(taskString);
-      this.taskGroup.tasks.push(task);
+      const appointmentEvent: AppointmentEvent = JSON.parse(appointmentEventString);
+      this.group.appointments.push(appointmentEvent);
       
-      localStorage.removeItem('task');
+      localStorage.removeItem('appointment-event');
     })
   }
 }

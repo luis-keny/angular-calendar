@@ -6,18 +6,18 @@
         <div class="moment__circle"></div>
         <div class="moment__line"></div>
     </div>
-    @for (task of taskGroup.tasks; track $index) {
+    @for (appointment of group.appointments; track $index) {
         <div class="event" 
-            appCalendarTask
-            [task]="task"
+            appCalendarAppointment
+            [appointment]="appointment"
             [heightPerHours]="heightPerHours"
             [unitOfMeasure]="unitOfMeasure"
             [currentMoment]="currentMoment"
-            [taskDay]="taskGroup.date"
+            [day]="group.date"
             >
-            <span class="event__task--name">{{ task.title }}</span>
-            <span class="event__task--time">
-                <span>{{ task.startTime }}</span><span> - {{ task.endTime }}</span>
+            <span class="event__appointment--name">{{ appointment.title }}</span>
+            <span class="event__appointment--time">
+                <span>{{ appointment.startTime }}</span><span> - {{ appointment.endTime }}</span>
             </span>
         </div>
     }

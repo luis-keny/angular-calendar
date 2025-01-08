@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, HostListener, OnInit, Output, ViewChild } from '@angular/core';
 
-import { CalendarView } from '@core/data/adapters/calendarView';
+import { CalendarView } from '@core/data/adapters/item-calendar';
 
 @Component({
   selector: 'app-select-custom',

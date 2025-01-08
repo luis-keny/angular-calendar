@@ -22,8 +22,8 @@ export class EventFormComponent {
   ) { }
 
   public onSubmit() {
-    const task = this.form.value;
-    localStorage.setItem('task', JSON.stringify(task));
+    const appointmentEvent = this.form.value;
+    localStorage.setItem('appointment-event', JSON.stringify(appointmentEvent));
     this.modalService.closeModal();
   }
 }

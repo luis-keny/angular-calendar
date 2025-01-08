@@ -1,4 +1,4 @@
-export interface Task {
+export interface AppointmentEvent {
     title: string;
     startTime: string;
     endTime: string;
@@ -7,7 +7,7 @@ export interface Task {
     height?: string;
 }
 
-export interface TaskGroup {
+export interface GroupAppointmentEvent {
     date: Date;
-    tasks: Task[];
+    appointments: AppointmentEvent[];
 }

@@ -1,5 +1,4 @@
-import { CalendarView } from "@core/data/adapters/calendarView";
-import { DateParts } from "@core/data/adapters/date";
+import { CalendarView, DateParts } from "@core/data/adapters/item-calendar";
 
 export class DateHelper {
     private date: Date = new Date();

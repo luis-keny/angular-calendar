@@ -3,10 +3,10 @@ import { Subscription } from 'rxjs';
 
 import { PopoverComponent } from '@shared/components/popover/popover.component';
 
-import { Task, TaskGroup } from '@core/data/adapters/task';
+import { AppointmentEvent, GroupAppointmentEvent } from '@core/data/adapters/group-appointment-event';
 import { DateHelper } from '@core/util/date-helper';
 import { UrlDateService } from '@core/service/url-date.service';
-import { TaskService } from '@core/service/task.service';
+import { AppointmentService } from '@core/service/appointment.service';
 
 
 @Component({
@@ -23,36 +23,36 @@ export class MonthContainerComponent implements OnInit, OnDestroy {
 
   weekDayNames: string[] = [];
   calendarDates: Date[][] = [];
-  taskGroups: TaskGroup[] = []
+  group: GroupAppointmentEvent[] = []
   currentDate = new Date();
   selectedDate: Date = new Date();
   
   dateHelper: DateHelper = new DateHelper();
   urlDateSub: Subscription = new Subscription();
-  taskSub: Subscription = new Subscription();
+  appointmentSub: Subscription = new Subscription();
 
   constructor(
     private urlDateSrv: UrlDateService,
-    private taskSrv: TaskService,
+    private appointmentSrv: AppointmentService,
   ) { }
 
   ngOnInit(): void {
     this.urlDateSub = this.urlDateSrv.getDateFromUrlObservable().subscribe(date => {
       this.calendarDates = this.dateHelper.getMonthForDate(date);
       this.weekDayNames = this.dateHelper.getWeekDayNames(this.calendarDates[0]);
-      this.taskSub = this.taskSrv.getTaskOfMonth(date).subscribe(tasks => {
-        this.taskGroups = tasks;
+      this.appointmentSub = this.appointmentSrv.getOfMonth(date).subscribe(a => {
+        this.group = a;
       });
     });
   }
 
   ngOnDestroy(): void {
     if(this.urlDateSub) this.urlDateSub.unsubscribe();
-    if(this.taskSub) this.taskSub.unsubscribe();
+    if(this.appointmentSub) this.appointmentSub.unsubscribe();
   }
 
   @HostListener('click', ['$event'])
-  resetPoper($event: any) {
+  resetPopover($event: any) {
     if($event.target.className != 'event--more') {
       this.selectedElement = undefined;
     }
@@ -65,10 +65,10 @@ export class MonthContainerComponent implements OnInit, OnDestroy {
     return current.year == date.year && current.month == date.month && current.day == date.day;
   }
 
-  public filterForDate(date: Date): Task[] {
-    const tasks = this.taskGroups.filter(group => this.dateHelper.isEqualDate(date, group.date));
-    if(tasks.length <= 0) return [];
-    return tasks[0].tasks;
+  public filterForDate(date: Date): AppointmentEvent[] {
+    const appointment = this.group.filter(a => this.dateHelper.isEqualDate(date, a.date));
+    if(appointment.length <= 0) return [];
+    return appointment[0].appointments;
   }
 
   public popoverActive(date: Date) {

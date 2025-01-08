@@ -23,11 +23,11 @@
             <div class="week__content">
                 @for (customDate of customDates; track $index) {
                     <div class="event__content">
-                        @if(taskGroups[$index]) {
+                        @if(group[$index]) {
                             <app-event-custom 
                                 [heightPerHours]="2.5"
                                 [unitOfMeasure]="'rem'"
-                                [taskGroup]="taskGroups[$index]"
+                                [group]="group[$index]"
                                 [dateSelected]="customDate"
                                 (positionCalculated)="scrollToMoment($event)"
                             ></app-event-custom>

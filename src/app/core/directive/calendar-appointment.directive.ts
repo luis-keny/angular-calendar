@@ -1,17 +1,17 @@
 import { Directive, ElementRef, Input, OnChanges, Renderer2 } from '@angular/core';
 
-import { Task } from '@core/data/adapters/task';
+import { AppointmentEvent } from '@core/data/adapters/group-appointment-event';
 
 @Directive({
-  selector: '[appCalendarTask]',
+  selector: '[appCalendarAppointment]',
   standalone: true,
 })
-export class CalendarTaskDirective implements OnChanges {
-  @Input({ required: true }) task!: Task;
+export class CalendarAppointmentDirective implements OnChanges {
+  @Input({ required: true }) appointment!: AppointmentEvent;
   @Input({ required: true }) heightPerHours!: number;
   @Input({ required: true }) unitOfMeasure!: string;
   @Input({ required: true }) currentMoment!: Date;
-  @Input({ required: true }) taskDay!: Date;
+  @Input({ required: true }) day!: Date;
 
   constructor(
     private elementRef: ElementRef,
@@ -19,7 +19,7 @@ export class CalendarTaskDirective implements OnChanges {
   ) { }
 
   ngOnChanges(): void {
-    const { startTime, endTime, color } = this.task;
+    const { startTime, endTime, color } = this.appointment;
 
     const { height, top } = this.getTopAndHeight(startTime,endTime);
     const element = this.elementRef.nativeElement;
@@ -30,7 +30,7 @@ export class CalendarTaskDirective implements OnChanges {
     this.render.setStyle(element, 'top', top);
     this.render.setStyle(element, 'background-color', backgroundColor);
 
-    if(this.isLessThatCurrent(this.taskDay, endTime)) {
+    if(this.isLessThatCurrent(this.day, endTime)) {
       this.render.setStyle(element, 'opacity', '0.5');
     } else {
       this.render.setStyle(element, 'opacity', '1');
@@ -39,7 +39,7 @@ export class CalendarTaskDirective implements OnChanges {
     if(parseFloat(height) >= acceptableHeight) {
       this.render.setStyle(element,"flex-direction", "column");
     } else {
-      this.render.addClass(element,"task--line");
+      this.render.addClass(element,"appointment--line");
     }
 
     if(parseFloat(height) <= ((acceptableHeight)/2)) {

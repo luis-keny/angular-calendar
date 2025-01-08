@@ -1,11 +1,11 @@
 import { DateHelper } from "@core/util/date-helper";
-import { TaskJson } from "../model/task-json";
-import { Task } from "../adapters/task";
+import { Appointment } from "../model/appointment";
+import { AppointmentEvent } from "../adapters/group-appointment-event";
 
-export class TaskMapper {
+export class AppointmentMapper {
     private dateHelper: DateHelper = new DateHelper();
     
-    public goFrom(model: TaskJson): Task {
+    public goFrom(model: Appointment): AppointmentEvent {
         return {
             title: model.title,
             startTime: model.startTime,
@@ -14,7 +14,7 @@ export class TaskMapper {
         }
     }
     
-    public goTo(adapter: Task, date: Date): TaskJson {
+    public goTo(adapter: AppointmentEvent, date: Date): Appointment {
         const dateString = this.dateHelper.dateToStringFormat(date);
         return {
             title: adapter.title,

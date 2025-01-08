@@ -54,21 +54,21 @@
     -o-border-radius: 0.35rem;
 }
 
-.event.task--line .event__task--name::after {
+.event.appointment--line .event__appointment--name::after {
     content: ',';
     margin-right: 0.3rem;
 }
 
-.event.task--line .event__task--time *:last-child {
+.event.appointment--line .event__appointment--time *:last-child {
     display: none;
 }
 
-.event__task--name {
+.event__appointment--name {
     font-weight: 700;
     white-space: normal;
     text-wrap: nowrap;
 }
 
-.event__task--time {
+.event__appointment--time {
     text-wrap: nowrap;
 }
