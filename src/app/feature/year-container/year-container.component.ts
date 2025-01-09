@@ -63,7 +63,8 @@ export class YearContainerComponent implements OnInit, OnDestroy {
   }
 
   public navigateByDay(date: Date) {
+    const baseUrl = localStorage.getItem('calendar-base-url') ?? '';
     const { day, month, year } = this.dateHelper.getDateParts(date);
-    this.router.navigate(['/calendar/year', year, month, day]);
+    this.router.navigate([`${baseUrl}/year`, year, month, day]);
   }
 }
