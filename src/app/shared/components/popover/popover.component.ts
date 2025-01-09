@@ -12,13 +12,12 @@ import { AppointmentService } from '@core/service/appointment.service';
   standalone: true,
   imports: [CommonModule],
 })
-export class PopoverComponent implements OnChanges, OnDestroy {
+export class PopoverComponent implements OnChanges {
   @Input({ required: true }) date!: Date;
   @Input({ required: true }) childElement!: ElementRef;
   @Input({ required: true }) parentElement!: ElementRef;
 
   group: GroupAppointmentEvent = { date: new Date(), appointments: [] };
-  appointmentSub: Subscription = new Subscription();
   
   top: string = '1rem';
   left: string = '5rem';
@@ -29,12 +28,8 @@ export class PopoverComponent implements OnChanges, OnDestroy {
   ) { }
 
   ngOnChanges(): void {
-    this.appointmentSub = this.appointmentSrv.getOfDay(this.date).subscribe(group => this.group = group);
+    this.group = this.appointmentSrv.getOfDay(this.date)
     this.definePosition();
-  }
-
-  ngOnDestroy(): void {
-    if(this.appointmentSub) this.appointmentSub.unsubscribe();
   }
 
   public definePosition(){

@@ -25,7 +25,6 @@ export class WeekContainerComponent implements OnInit, OnDestroy {
   group: GroupAppointmentEvent[] = [];
   hours: string[] = [];
   urlDateSub: Subscription = new Subscription();
-  appointmentSub: Subscription = new Subscription();
 
   constructor(
     private urlDateSrv: UrlDateService,
@@ -37,15 +36,12 @@ export class WeekContainerComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.urlDateSub = this.urlDateSrv.getDateFromUrlObservable().subscribe(date => {
       this.customDates = this.dateHelper.getWeekForDate(date);
-      this.appointmentSub = this.appointmentSrv.getOfWeek(date).subscribe(a => {
-        this.group = a;
-      });
+      this.group = this.appointmentSrv.getOfWeek(date);
     });
   }
 
   ngOnDestroy(): void {
     if(this.urlDateSub) this.urlDateSub.unsubscribe();
-    if(this.appointmentSub) this.appointmentSub.unsubscribe();
   }
 
   private createHours() {

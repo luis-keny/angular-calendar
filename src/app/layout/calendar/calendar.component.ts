@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -6,6 +6,8 @@ import { CalendarView } from '@core/data/adapters/item-calendar';
 import { UrlDateService } from '@core/service/url-date.service';
 import { DateHelper } from '@core/util/date-helper';
 import { ModalService } from '@core/service/modal.service';
+import { Appointment } from '@core/data/model/appointment';
+import { AppointmentService } from '@core/service/appointment.service';
 
 
 @Component({
@@ -13,24 +15,31 @@ import { ModalService } from '@core/service/modal.service';
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.css'
 })
-export class CalendarComponent implements OnInit, OnDestroy {
+export class CalendarComponent implements OnChanges, OnDestroy {
+  @Input({ required: true }) appointments: Appointment[] = [];
+  
   currentDay = new Date();
   customDate!: Date;
   calendarView: CalendarView = this.getCalendarViewOfLocalStorage();
   urlDateSub: Subscription = new Subscription();
   dateHelper = new DateHelper(new Date());
-  baseUrl = ''
+  baseUrl = '';
+  
 
   constructor(
     private router: Router,
     private urlDateSrv: UrlDateService,
     private containerRef: ViewContainerRef,
     private modalSrv: ModalService,
+    private appointmentSrv: AppointmentService
   ) {}
 
-  ngOnInit(): void {
+  ngOnChanges(): void {
     this.modalSrv.initModal(this.containerRef);
+    this.appointmentSrv.setAppointments(this.appointments);
+    
     this.baseUrl = this.router.url.split('/').slice(0, -1).join('/');
+    
     this.urlDateSub = this.urlDateSrv.getDateFromUrlObservable().subscribe(date => {
       this.customDate = date;
       this.dateHelper.updateDate(date);

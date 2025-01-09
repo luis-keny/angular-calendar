@@ -29,7 +29,6 @@ export class MonthContainerComponent implements OnInit, OnDestroy {
   
   dateHelper: DateHelper = new DateHelper();
   urlDateSub: Subscription = new Subscription();
-  appointmentSub: Subscription = new Subscription();
 
   constructor(
     private urlDateSrv: UrlDateService,
@@ -40,15 +39,12 @@ export class MonthContainerComponent implements OnInit, OnDestroy {
     this.urlDateSub = this.urlDateSrv.getDateFromUrlObservable().subscribe(date => {
       this.calendarDates = this.dateHelper.getMonthForDate(date);
       this.weekDayNames = this.dateHelper.getWeekDayNames(this.calendarDates[0]);
-      this.appointmentSub = this.appointmentSrv.getOfMonth(date).subscribe(a => {
-        this.group = a;
-      });
+      this.group = this.appointmentSrv.getOfMonth(date);
     });
   }
 
   ngOnDestroy(): void {
     if(this.urlDateSub) this.urlDateSub.unsubscribe();
-    if(this.appointmentSub) this.appointmentSub.unsubscribe();
   }
 
   @HostListener('click', ['$event'])

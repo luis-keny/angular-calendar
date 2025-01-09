@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { EventCustomComponent } from '@shared/components/event-custom/event-custom.component';
@@ -24,7 +24,6 @@ export class DayContainerComponent implements OnInit, OnDestroy {
   group: GroupAppointmentEvent = { date: new Date(), appointments: [] };
   hours: string[] = [];
   urlDateSub: Subscription = new Subscription();
-  appointmentSub: Subscription = new Subscription();
 
   constructor(
     private urlDateSrv: UrlDateService,
@@ -36,15 +35,13 @@ export class DayContainerComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.urlDateSub = this.urlDateSrv.getDateFromUrlObservable().subscribe(date => {
       this.customDate = date;
-      this.appointmentSub = this.appointmentSrv.getOfDay(date).subscribe(a => {
-        this.group = a;
-      });
+      console.log("recompile")
+      this.group = this.appointmentSrv.getOfDay(date);
     });
   }
 
   ngOnDestroy(): void {
     if(this.urlDateSub) this.urlDateSub.unsubscribe();
-    if(this.appointmentSub) this.appointmentSub.unsubscribe();
   }
 
   private createHours() {
