@@ -14,23 +14,30 @@ export class AppointmentService {
     }
 
     public getOfDay(date: Date) {
-        const objectString = localStorage.getItem('calendar-appointments');
-        if(!objectString) throw Error('Appointments is undefined')
-        const appointments: Appointment[] = JSON.parse(objectString);
+        const appointments: Appointment[] = this.getAppointmentsOfLocalStorage();
         return this.groupAppointmentHelper.getGroupAppointmentsOfDay(appointments, date)
     }
 
     public getOfWeek(date: Date) {
-        const objectString = localStorage.getItem('calendar-appointments');
-        if(!objectString) throw Error('Appointments is undefined')
-        const appointments: Appointment[] = JSON.parse(objectString);
-        return this.groupAppointmentHelper.getGroupAppointmentsOfWeek(appointments, date)
+        const appointments: Appointment[] = this.getAppointmentsOfLocalStorage();
+        const group = this.groupAppointmentHelper.getGroupAppointmentsOfWeek(appointments, date)
+        return group;
     }
 
     public getOfMonth(date: Date) {
+        const appointments: Appointment[] = this.getAppointmentsOfLocalStorage();
+        return this.groupAppointmentHelper.getGroupAppointmentsOfMonth(appointments, date)
+    }
+
+    private getAppointmentsOfLocalStorage(): Appointment[] {
         const objectString = localStorage.getItem('calendar-appointments');
         if(!objectString) throw Error('Appointments is undefined')
         const appointments: Appointment[] = JSON.parse(objectString);
-        return this.groupAppointmentHelper.getGroupAppointmentsOfMonth(appointments, date)
+        const appointmentsFormatted: Appointment[] = appointments.map(a => {
+            a.start = new Date(a.start);
+            a.end = new Date(a.end);
+            return a;
+        });
+        return appointmentsFormatted;
     }
 }

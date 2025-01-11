@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CalendarComponent } from './calendar.component';
 
 const routes: Routes = [
   {
@@ -19,15 +18,15 @@ const routes: Routes = [
     path: 'year/:year/:month/:day',
     loadComponent: () => import('@feature/year-container/year-container.component').then(m => m.YearContainerComponent)
   },
-  // {
-  //   path: '',
-  //   redirectTo: 'week',
-  //   pathMatch: 'full'
-  // },
-  // {
-  //   path: '**',
-  //   redirectTo: 'week',
-  // },
+  {
+    path: '',
+    redirectTo: 'week',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: 'week',
+  },
 ];
 
 @NgModule({

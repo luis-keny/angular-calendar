@@ -19,9 +19,9 @@ export class CalendarAppointmentDirective implements OnChanges {
   ) { }
 
   ngOnChanges(): void {
-    const { startTime, endTime, color } = this.appointment;
+    const { startTimeOfDay, endTimeOfDay, color } = this.appointment;
 
-    const { height, top } = this.getTopAndHeight(startTime,endTime);
+    const { height, top } = this.getTopAndHeight(startTimeOfDay,endTimeOfDay);
     const element = this.elementRef.nativeElement;
     const acceptableHeight = (this.heightPerHours*4)/5;
     const backgroundColor = color || 'var(--color-900)';
@@ -30,7 +30,7 @@ export class CalendarAppointmentDirective implements OnChanges {
     this.render.setStyle(element, 'top', top);
     this.render.setStyle(element, 'background-color', backgroundColor);
 
-    if(this.isLessThatCurrent(this.day, endTime)) {
+    if(this.isLessThatCurrent(this.day, endTimeOfDay)) {
       this.render.setStyle(element, 'opacity', '0.5');
     } else {
       this.render.setStyle(element, 'opacity', '1');

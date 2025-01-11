@@ -1,4 +1,5 @@
 import { CalendarView, DateParts } from "@core/data/adapters/item-calendar";
+import { isBefore } from "@formkit/tempo";
 
 export class DateHelper {
     private date: Date = new Date();
@@ -29,7 +30,8 @@ export class DateHelper {
     }
 
     private leapYear(dateSelect?: Date) {
-        let year = dateSelect?.getFullYear() ?? this.date.getFullYear();
+        let year: number = this.date.getFullYear();
+        if( dateSelect ) year = dateSelect.getFullYear();
         let isLeapYear = (year%4==0 || year%100==0 || year%400==0);
 
         if(isLeapYear) {
@@ -46,7 +48,7 @@ export class DateHelper {
 
     public adjustDateByDays(count: number, dateSelected?: Date): Date {
         let date = dateSelected ?? this.date;
-        this.leapYear(date);
+        // this.leapYear(date);
         const { day, month, year } = this.getDateParts(date);
         const currentMonthInfo = this.monthDaysMap.filter(v => v.month === month)[0];
         const nextDay = day + count;
@@ -69,8 +71,8 @@ export class DateHelper {
             monthAdjustment = previousMonthInfo.month
             dayAdjustment = previousMonthInfo.maxDay + nextDay;
         };
-        
-        return this.buildDate(yearAdjustment, monthAdjustment, dayAdjustment);
+        const dateGenerated = this.buildDate(yearAdjustment, monthAdjustment, dayAdjustment);
+        return dateGenerated;
     }
 
     public adjustDateByMonth(count: number): Date {
@@ -98,7 +100,7 @@ export class DateHelper {
 
     public getDateParts(customDate?: Date): DateParts {
         let date = this.date;
-        if(customDate) date = customDate;
+        if(customDate instanceof Date) date = customDate;
         return {
             day: date.getDate(),
             month: date.getMonth() + 1,
@@ -141,7 +143,7 @@ export class DateHelper {
 
     public getWeekForDate(dateSelected?: Date): Date[] {
         let week: Date[] = [];
-        let date = dateSelected ?? this.date;
+        let date = dateSelected || this.date;
         this.leapYear(date);
 
         for(let i = 0; i < 7; i++) {
@@ -219,5 +221,23 @@ export class DateHelper {
         const month = (date.getMonth() + 1).toString().padStart(2,'0');
         const day = (date.getDate()).toString().padStart(2,'0');
         return `${year}-${month}-${day}`;
+    }
+
+    public getDaysInRange(startDate: Date, endDate: Date): Date[] {
+        const daysInRange: Date[] = [];
+        let currentDate = new Date(startDate);
+        let lastDate = new Date(endDate);
+        let count = 0;
+        daysInRange.push(new Date(currentDate));
+        do {
+            currentDate.setDate(currentDate.getDate() + 1);
+            daysInRange.push(new Date(currentDate));
+            count++;
+        } while (!(this.isEqualDate(currentDate, lastDate) || count > 50))
+        return daysInRange;
+    }
+    
+    public isDateInRange(dateToCheck: Date, startDate: Date, endDate: Date): boolean {
+        return dateToCheck >= startDate && dateToCheck <= endDate;
     }
 }

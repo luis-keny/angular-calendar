@@ -13,7 +13,7 @@ export class UrlDateService {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
-        const date = this.extractDateFromUrl();
+        const date: Date = this.extractDateFromUrl();
         this.dateFromUrl.next(date);
       });
   }

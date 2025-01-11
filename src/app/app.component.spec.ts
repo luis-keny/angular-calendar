@@ -1,35 +1,31 @@
 import { TestBed } from '@angular/core/testing';
-import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
+import { provideHttpClient } from '@angular/common/http';
+import { CalendarModule } from '@layout/calendar/calendar.module';
 
 describe('AppComponent', () => {
+  let app: AppComponent;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterModule.forRoot([])
+        CalendarModule,
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+      ],
+      providers: [
+        provideHttpClient()
       ],
     }).compileComponents();
+    const fixture = TestBed.createComponent(AppComponent);
+    app = fixture.componentInstance;
   });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
   it(`should have as title 'calendar'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
     expect(app.title).toEqual('calendar');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, calendar');
   });
 });

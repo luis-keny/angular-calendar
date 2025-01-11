@@ -1,10 +1,23 @@
+import { Category } from "../model/appointment";
+
 export interface AppointmentEvent {
+    id: number;
     title: string;
-    startTime: string;
-    endTime: string;
+    description: string;
+    timeRangeOfEvent: {
+        start: Date;
+        end: Date;
+    };
+    startTimeOfDay: string;
+    endTimeOfDay: string;
+    allDay: boolean;
+    draggable: boolean;
+    resizable: {
+        beforeStart: boolean;
+        afterEnd: boolean;
+    };
     color?: string;
-    top?: string;
-    height?: string;
+    category?: Category;
 }
 
 export interface GroupAppointmentEvent {

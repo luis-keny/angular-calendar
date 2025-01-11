@@ -35,7 +35,6 @@ export class DayContainerComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.urlDateSub = this.urlDateSrv.getDateFromUrlObservable().subscribe(date => {
       this.customDate = date;
-      console.log("recompile")
       this.group = this.appointmentSrv.getOfDay(date);
     });
   }

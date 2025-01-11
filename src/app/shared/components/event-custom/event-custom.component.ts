@@ -73,6 +73,8 @@ export class EventCustomComponent implements OnInit {
       if(!appointmentEventString) return;
       
       const appointmentEvent: AppointmentEvent = JSON.parse(appointmentEventString);
+      appointmentEvent.timeRangeOfEvent.start = new Date(appointmentEvent.timeRangeOfEvent.start);
+      appointmentEvent.timeRangeOfEvent.end = new Date(appointmentEvent.timeRangeOfEvent.end);
       this.group.appointments.push(appointmentEvent);
       
       localStorage.removeItem('appointment-event');

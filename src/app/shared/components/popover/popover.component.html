@@ -4,7 +4,7 @@
     @for (appointment of group.appointments; track $index) {
         <p class="event__content">
             <span class="circle" [style]="'background-color: ' + (appointment.color ?? 'var(--color-900)')"></span>
-            <span class="event__time">{{ appointment.startTime }}</span>
+            <span class="event__time">{{ appointment.startTimeOfDay }}</span>
             <span class="event__name">{{ appointment.title }}</span>
         </p>
     }

@@ -12,41 +12,50 @@ export class GroupAppointmentHelper {
     public getGroupAppointmentsOfDay(appointments: Appointment[], date: Date): GroupAppointmentEvent {
         const appointmentsOfDay = this.calendarHelper.getAppointmentsOfDay(appointments, date);
         if(appointmentsOfDay.length == 0) return { date, appointments: [] }
-        return this.group(appointmentsOfDay)[0];
+        return this.group(appointmentsOfDay, [date])[0];
     }
 
-    public getGroupAppointmentsOfWeek(appointments: Appointment[], date: Date) {
+    public getGroupAppointmentsOfWeek(appointments: Appointment[], date: Date): GroupAppointmentEvent[] {
         const appointmentsOfWeek = this.calendarHelper.getAppointmentsOfWeek(appointments, date);
-        return this.group(appointmentsOfWeek);
+        const week = this.dateHelper.getWeekForDate(date);
+        return this.group(appointmentsOfWeek, week);
     }
 
-    public getGroupAppointmentsOfMonth(appointments: Appointment[], date: Date) {
+    public getGroupAppointmentsOfMonth(appointments: Appointment[], date: Date): GroupAppointmentEvent[] {
         const appointmentsOfMonth = this.calendarHelper.getAppointmentsOfMonth(appointments, date);
-        return this.group(appointmentsOfMonth);
+        const month = this.dateHelper.getMonthForDate(date);
+        let groups: GroupAppointmentEvent[] = [];
+        for(let week of month) {
+            const appointmentsWeek: GroupAppointmentEvent[] = this.group(appointmentsOfMonth,week)
+            for(let a of appointmentsWeek) {
+                groups.push(a);
+            }
+        }
+        return groups;
     }
 
-    public group(appointments: Appointment[]): GroupAppointmentEvent[] {
+    public group(appointments: Appointment[], dates: Date[]): GroupAppointmentEvent[] {
         let groupAppointment: GroupAppointmentEvent[] = [];
 
         for(let appointment of appointments) {
-            const dateStringParts = appointment.date.split('-');
-            const year = parseInt(dateStringParts[0]);
-            const month = parseInt(dateStringParts[1]);
-            const day = parseInt(dateStringParts[2]);
-            const dateGroup = this.dateHelper.buildDate(year, month, day);
-
-            let group = groupAppointment.filter(a => this.dateHelper.isEqualDate(dateGroup, a.date))[0];
-
-            if(!group) {
-                group = { date: dateGroup, appointments: [] }
-                group.appointments.push(this.appointmentMapper.goFrom(appointment));
-                groupAppointment.push(group);
-            } else {
-                groupAppointment.some(a => {
-                    if(!(this.dateHelper.isEqualDate(dateGroup, a.date))) return false;
-                    a.appointments.push(this.appointmentMapper.goFrom(appointment));
-                    return true;
-                })
+            for(let date of dates) {
+                let group = groupAppointment.filter(a => this.dateHelper.isEqualDate(date, a.date))[0];
+                if(!group) {
+                    const newGroup: GroupAppointmentEvent = { date, appointments: [] } 
+                    if(this.dateHelper.isDateInRange(date, appointment.start, appointment.end)) {
+                        newGroup.appointments.push(this.appointmentMapper.goFrom(appointment, date));
+                    }
+                    groupAppointment.push(newGroup);
+                } else {
+                    groupAppointment.some(a => {
+                        if(this.dateHelper.isDateInRange(date, appointment.start, appointment.end)) {
+                            if(a.appointments.some(a => a.id == appointment.id)) return false;
+                            a.appointments.push(this.appointmentMapper.goFrom(appointment, date));
+                            return true;
+                        }
+                        return false;
+                    })
+                }
             }
         }
 
