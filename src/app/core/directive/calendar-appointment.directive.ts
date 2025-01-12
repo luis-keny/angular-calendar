@@ -28,12 +28,12 @@ export class CalendarAppointmentDirective implements OnChanges {
 
     this.render.setStyle(element, 'height', `calc( ${height} - 1px)`);
     this.render.setStyle(element, 'top', top);
-    this.render.setStyle(element, 'background-color', backgroundColor);
 
     if(this.isLessThatCurrent(this.day, endTimeOfDay)) {
-      this.render.setStyle(element, 'opacity', '0.5');
+      this.render.setStyle(element, 'background-color', `color-mix(in lab, ${backgroundColor}, #fff 50%)`);
+      this.render.setStyle(element, 'color', `color-mix(in lab, #fff, #000 5%)`); 
     } else {
-      this.render.setStyle(element, 'opacity', '1');
+      this.render.setStyle(element, 'background-color', backgroundColor);
     }
 
     if(parseFloat(height) >= acceptableHeight) {
