@@ -12,7 +12,7 @@ export class AppointmentMapper {
         return {
             id:             model.id,
             title:          model.title,
-            description:    model.description,
+            description:    model.description ?? '',
             allDay:         model.allDay,
             draggable:      model.draggable,
             resizable:      model.resizable,

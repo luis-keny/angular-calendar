@@ -21,6 +21,7 @@ export class AppointmentService {
     public getOfWeek(date: Date) {
         const appointments: Appointment[] = this.getAppointmentsOfLocalStorage();
         const group = this.groupAppointmentHelper.getGroupAppointmentsOfWeek(appointments, date)
+        // console.log(group);
         return group;
     }
 

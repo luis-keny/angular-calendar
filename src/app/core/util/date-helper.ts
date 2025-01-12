@@ -1,5 +1,4 @@
 import { CalendarView, DateParts } from "@core/data/adapters/item-calendar";
-import { isBefore } from "@formkit/tempo";
 
 export class DateHelper {
     private date: Date = new Date();
@@ -229,6 +228,9 @@ export class DateHelper {
         let lastDate = new Date(endDate);
         let count = 0;
         daysInRange.push(new Date(currentDate));
+        
+        if(this.isEqualDate(currentDate, lastDate)) return daysInRange;
+        
         do {
             currentDate.setDate(currentDate.getDate() + 1);
             daysInRange.push(new Date(currentDate));
@@ -238,6 +240,10 @@ export class DateHelper {
     }
     
     public isDateInRange(dateToCheck: Date, startDate: Date, endDate: Date): boolean {
-        return dateToCheck >= startDate && dateToCheck <= endDate;
+        const checkDate = new Date(dateToCheck.getFullYear(), dateToCheck.getMonth(), dateToCheck.getDate());
+        const start = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+        const end = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+      
+        return checkDate >= start && checkDate <= end;
     }
 }

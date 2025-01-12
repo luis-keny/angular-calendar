@@ -1,7 +1,7 @@
 export interface Appointment {
     id: number;
     title: string;
-    description: string;
+    description?: string;
     start: Date;
     end: Date;
     allDay: boolean;
