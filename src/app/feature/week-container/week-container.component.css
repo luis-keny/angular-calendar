@@ -38,6 +38,8 @@
 }
 
 .day__number {
+    user-select: none;
+    cursor: pointer;
     font-size: 32px;
     width: 48px;
     height: 48px;
@@ -48,11 +50,20 @@
     -moz-border-radius: 999px;
     -ms-border-radius: 999px;
     -o-border-radius: 999px;
+    transition: background-color .2s;
+    -webkit-transition: background-color .2s;
+    -moz-transition: background-color .2s;
+    -ms-transition: background-color .2s;
+    -o-transition: background-color .2s;
 }
 
 .day__number.active {
     background-color: var(--color-700);
     color: var(--color-50);
+}
+
+.day__number:hover {
+    background-color: var(--color-100);
 }
 
 .date__void {

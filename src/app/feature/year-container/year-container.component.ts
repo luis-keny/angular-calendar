@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { UrlDateService } from '@core/service/url-date.service';
 import { DateHelper } from '@core/util/date-helper';
+import { ViewCalendarService } from '@core/service/view-calendar.service';
 
 
 @Component({
@@ -26,7 +27,8 @@ export class YearContainerComponent implements OnInit, OnDestroy {
 
   constructor(
     private urlDateSrv: UrlDateService,
-    private router: Router
+    private router: Router,
+    private viewCalendarSrv: ViewCalendarService,
   ) { }
 
   ngOnInit(): void {
@@ -66,5 +68,12 @@ export class YearContainerComponent implements OnInit, OnDestroy {
     const baseUrl = localStorage.getItem('calendar-base-url') ?? '';
     const { day, month, year } = this.dateHelper.getDateParts(date);
     this.router.navigate([`${baseUrl}/year`, year, month, day]);
+  }
+
+  public navigateByView(date: Date) {
+    const baseUrl = localStorage.getItem('calendar-base-url') ?? '';
+    const { day, month, year } = this.dateHelper.getDateParts(date);
+    this.viewCalendarSrv.updateViewCalendar('day');
+    this.router.navigate([`${baseUrl}/day`, year, month, day]);
   }
 }

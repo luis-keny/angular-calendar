@@ -10,7 +10,7 @@
                 @for (date of dates; track $index) {
                     <div class="month__day" #DayElement>
                         <span style="display: none;">{{date}}</span>
-                        <p class="day__number" [class]="isCurrentDay(date) ?  'active' : ''"><span>{{ date.getDate() }}</span></p>
+                        <p class="day__number" (click)="navigateByView(date)" [class]="isCurrentDay(date) ?  'active' : ''"><span>{{ date.getDate() }}</span></p>
                         <div class="event">
                             @for (appointment of filterForDate(date); track $index) {
                                 @if ($index < 2) {

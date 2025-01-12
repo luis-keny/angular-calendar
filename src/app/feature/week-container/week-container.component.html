@@ -5,7 +5,7 @@
             @for (customDate of customDates; track $index) {
                 <div class="day">
                     <h5 class="day__name" [class]="isCurrentDay(customDate) ? 'active' : ''">{{ customDate.toString().split(" ")[0] }}</h5>
-                    <h3 class="day__number" [class]="isCurrentDay(customDate) ?  'active' : ''">{{ customDate.getDate() }}</h3>
+                    <h3 class="day__number" (click)="navigateByView(customDate)" [class]="isCurrentDay(customDate) ?  'active' : ''">{{ customDate.getDate() }}</h3>
                     <span class="date__void"></span>
                 </div>
             }

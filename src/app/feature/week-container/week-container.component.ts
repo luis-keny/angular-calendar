@@ -7,6 +7,8 @@ import { DateHelper } from '@core/util/date-helper';
 import { GroupAppointmentEvent } from '@core/data/adapters/group-appointment-event';
 import { UrlDateService } from '@core/service/url-date.service';
 import { AppointmentService } from '@core/service/appointment.service';
+import { Router } from '@angular/router';
+import { ViewCalendarService } from '@core/service/view-calendar.service';
 
 
 @Component({
@@ -29,6 +31,8 @@ export class WeekContainerComponent implements OnInit, OnDestroy {
   constructor(
     private urlDateSrv: UrlDateService,
     private appointmentSrv: AppointmentService,
+    private router: Router,
+    private viewCalendarSrv: ViewCalendarService,
   ) {
     this.createHours();
   }
@@ -61,5 +65,12 @@ export class WeekContainerComponent implements OnInit, OnDestroy {
       top: top - container.offsetHeight / 2,
       behavior: 'smooth',
     });
+  }
+
+  public navigateByView(date: Date) {
+    const baseUrl = localStorage.getItem('calendar-base-url') ?? '';
+    const { day, month, year } = this.dateHelper.getDateParts(date);
+    this.viewCalendarSrv.updateViewCalendar('day');
+    this.router.navigate([`${baseUrl}/day`, year, month, day]);
   }
 }

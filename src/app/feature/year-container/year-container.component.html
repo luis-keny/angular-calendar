@@ -14,6 +14,7 @@
                             <div class="day">
                                 <p class="day__number" 
                                     (click)="navigateByDay(day)"
+                                    (dblclick)="navigateByView(day)"
                                     [class]="{
                                         'isCurrent' : isCurrentDay(day),
                                         'isOtherMonth' : isOtherMonth(month, day),

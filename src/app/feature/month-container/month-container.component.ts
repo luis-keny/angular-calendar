@@ -7,6 +7,8 @@ import { AppointmentEvent, GroupAppointmentEvent } from '@core/data/adapters/gro
 import { DateHelper } from '@core/util/date-helper';
 import { UrlDateService } from '@core/service/url-date.service';
 import { AppointmentService } from '@core/service/appointment.service';
+import { ViewCalendarService } from '@core/service/view-calendar.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -33,6 +35,8 @@ export class MonthContainerComponent implements OnInit, OnDestroy {
   constructor(
     private urlDateSrv: UrlDateService,
     private appointmentSrv: AppointmentService,
+    private router: Router,
+    private viewCalendarSrv: ViewCalendarService,
   ) { }
 
   ngOnInit(): void {
@@ -73,5 +77,12 @@ export class MonthContainerComponent implements OnInit, OnDestroy {
     )[0];
     this.selectedElement = dayElement;
     this.selectedDate = date;
+  }
+
+  public navigateByView(date: Date) {
+    const baseUrl = localStorage.getItem('calendar-base-url') ?? '';
+    const { day, month, year } = this.dateHelper.getDateParts(date);
+    this.viewCalendarSrv.updateViewCalendar('day');
+    this.router.navigate([`${baseUrl}/day`, year, month, day]);
   }
 }

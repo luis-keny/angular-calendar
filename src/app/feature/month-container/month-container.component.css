@@ -41,6 +41,8 @@
 }
 
 .day__number {
+    user-select: none;
+    cursor: pointer;
     margin: 0.5rem 0;
     width: 1.5rem;
     height: 1.5rem;
@@ -52,11 +54,20 @@
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
+    transition: background-color .2s;
+    -webkit-transition: background-color .2s;
+    -moz-transition: background-color .2s;
+    -ms-transition: background-color .2s;
+    -o-transition: background-color .2s;
 }
 
 .day__number.active {
     background-color: var(--color-700);
     color: var(--color-50);
+}
+
+.day__number:hover {
+    background-color: var(--color-100);
 }
 
 .event {
