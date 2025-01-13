@@ -1,0 +1,41 @@
+.event {
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+    padding: 0.3rem 0.5rem;
+    
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    
+    color: white;
+    font-size: 0.7rem;
+    border-radius: 0.35rem;
+    -webkit-border-radius: 0.35rem;
+    -moz-border-radius: 0.35rem;
+    -ms-border-radius: 0.35rem;
+    -o-border-radius: 0.35rem;
+}
+
+.all-day {
+    position: relative;
+}
+
+.event.appointment--line .event__appointment--name::after {
+    content: ',';
+    margin-right: 0.3rem;
+}
+
+.event.appointment--line .event__appointment--time *:last-child {
+    display: none;
+}
+
+.event__appointment--name {
+    font-weight: 700;
+    white-space: normal;
+    text-wrap: nowrap;
+}
+
+.event__appointment--time {
+    text-wrap: nowrap;
+}

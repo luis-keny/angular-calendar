@@ -1,14 +1,15 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { EventCustomComponent } from '@shared/components/event-custom/event-custom.component';
 
 import { DateHelper } from '@core/util/date-helper';
-import { GroupAppointmentEvent } from '@core/data/adapters/group-appointment-event';
+import { AppointmentEvent, GroupAppointmentEvent } from '@core/data/adapters/group-appointment-event';
 import { UrlDateService } from '@core/service/url-date.service';
 import { AppointmentService } from '@core/service/appointment.service';
 import { Router } from '@angular/router';
 import { ViewCalendarService } from '@core/service/view-calendar.service';
+import { AppointmentEventComponent } from '@shared/components/appointment-event/appointment-event.component';
 
 
 @Component({
@@ -16,17 +17,21 @@ import { ViewCalendarService } from '@core/service/view-calendar.service';
   templateUrl: './week-container.component.html',
   styleUrl: './week-container.component.css',
   standalone: true,
-  imports: [EventCustomComponent],
+  imports: [EventCustomComponent, AppointmentEventComponent],
 })
-export class WeekContainerComponent implements OnInit, OnDestroy {
+export class WeekContainerComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('contentContainer') contentContainer!: ElementRef<HTMLDivElement>;
+  @ViewChild('contentAllDay') contentAllDay!: ElementRef<HTMLDivElement>;
 
   dateHelper: DateHelper = new DateHelper();
-  customDates: Date[] = [];
+  week: Date[] = [];
+  objectWeek: {day: Date, zIndex: number}[] = [];
+  zIndexes: number[] = [7,6,5,4,3,2,1];
   currentDate = new Date();
   group: GroupAppointmentEvent[] = [];
   hours: string[] = [];
   urlDateSub: Subscription = new Subscription();
+  widthContentAllDay: string = '200px';
 
   constructor(
     private urlDateSrv: UrlDateService,
@@ -39,13 +44,28 @@ export class WeekContainerComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.urlDateSub = this.urlDateSrv.getDateFromUrlObservable().subscribe(date => {
-      this.customDates = this.dateHelper.getWeekForDate(date);
+      const week = this.dateHelper.getWeekForDate(date);
+      this.week = week;
+      for(let i = 0; i < week.length; i++) {
+        const day = week[i];
+        this.objectWeek.push({day, zIndex: this.getZIndex(i)});
+      }
       this.group = this.appointmentSrv.getOfWeek(date);
     });
   }
 
+  ngAfterViewInit(): void {
+    this.defineWidthOfContentAllDay();
+  }
+
   ngOnDestroy(): void {
     if(this.urlDateSub) this.urlDateSub.unsubscribe();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  private defineWidthOfContentAllDay() {
+    this.widthContentAllDay = this.contentAllDay.nativeElement.offsetWidth.toString() + 'px';
+    console.log(this.widthContentAllDay);
   }
 
   private createHours() {
@@ -72,5 +92,23 @@ export class WeekContainerComponent implements OnInit, OnDestroy {
     const { day, month, year } = this.dateHelper.getDateParts(date);
     this.viewCalendarSrv.updateViewCalendar('day');
     this.router.navigate([`${baseUrl}/day`, year, month, day]);
+  }
+
+  public appointmentsAllDay(date: Date, index: number) {
+    return this.group[index].appointments.filter(a => a.allDay && this.dateHelper.isDateInRange(date,a.timeRangeOfEvent.start, a.timeRangeOfEvent.end))
+  }
+
+  public defineAmountOfDaysInRange(dateChecked: Date, appointment: AppointmentEvent): string {
+    const lastDayWeek = this.week[this.week.length - 1];
+    const lastDayRange = appointment.timeRangeOfEvent.end;
+    const lastDay = lastDayRange < lastDayWeek ? lastDayRange : lastDayWeek;
+    const countsDays = this.dateHelper.getDaysInRange(dateChecked, lastDay).length;
+    return `calc(${this.widthContentAllDay} * ${countsDays})`;
+  }
+
+  public getZIndex(index: number): number {
+    const zIndex = 7 - index;
+    console.log(zIndex)
+    return zIndex;
   }
 }

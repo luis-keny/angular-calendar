@@ -7,18 +7,14 @@
         <div class="moment__line"></div>
     </div>
     @for (appointment of group.appointments; track $index) {
-        <div class="event" 
-            appCalendarAppointment
+        @if (!appointment.allDay) {
+        <app-appointment-event
             [appointment]="appointment"
             [heightPerHours]="heightPerHours"
             [unitOfMeasure]="unitOfMeasure"
             [currentMoment]="currentMoment"
-            [day]="group.date"
-            >
-            <span class="event__appointment--name">{{ appointment.title }}</span>
-            <span class="event__appointment--time">
-                <span>{{ appointment.startTimeOfDay }}</span><span> - {{ appointment.endTimeOfDay }}</span>
-            </span>
-        </div>
+            [date]="group.date"
+            />
+        }
     }
 </div>

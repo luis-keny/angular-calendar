@@ -1,12 +1,11 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 
 import { AppointmentEvent, GroupAppointmentEvent } from '@core/data/adapters/group-appointment-event';
-import { CalendarAppointmentDirective } from '@core/directive/calendar-appointment.directive';
 import { ModalService } from '@core/service/modal.service';
 import { DateHelper } from '@core/util/date-helper';
 
 import { EventFormComponent } from '../event-form/event-form.component';
+import { AppointmentEventComponent } from '../appointment-event/appointment-event.component';
 
 
 @Component({
@@ -14,7 +13,7 @@ import { EventFormComponent } from '../event-form/event-form.component';
   templateUrl: './event-custom.component.html',
   styleUrl: './event-custom.component.css',
   standalone: true,
-  imports: [FormsModule, CalendarAppointmentDirective],
+  imports: [AppointmentEventComponent],
 })
 export class EventCustomComponent implements OnInit {
   @Input({ required: true }) heightPerHours!: number;

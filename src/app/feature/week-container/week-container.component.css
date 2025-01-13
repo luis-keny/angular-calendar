@@ -30,7 +30,10 @@
 
 .day {
     position: relative;
-    padding: 0.5rem 0;
+    padding-top: 0.5rem;
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    width: calc((100vw - 3.25rem)/7);
 }
 
 .day__name.active {
@@ -67,11 +70,14 @@
 }
 
 .date__void {
-    position: absolute;
+    padding-bottom: 0.25rem;
     bottom: 0;
-    height: 1rem;
-    width: 100%;
+    min-height: 1rem;
+    width: calc((100vw - 3.25rem)/7);
     border-left: 1px solid var(--color-200);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }
 
 .time {

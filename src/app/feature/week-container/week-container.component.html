@@ -2,16 +2,26 @@
     <div class="content">
         <span class="void"></span>
         <div class="week">
-            @for (customDate of customDates; track $index) {
-                <div class="day">
-                    <h5 class="day__name" [class]="isCurrentDay(customDate) ? 'active' : ''">{{ customDate.toString().split(" ")[0] }}</h5>
-                    <h3 class="day__number" (click)="navigateByView(customDate)" [class]="isCurrentDay(customDate) ?  'active' : ''">{{ customDate.getDate() }}</h3>
-                    <span class="date__void"></span>
+            @for (objectDay of objectWeek; track $index) {
+                <div class="day" #contentContainer>
+                    <h5 class="day__name" [class]="isCurrentDay(objectDay.day) ? 'active' : ''">{{ objectDay.day.toString().split(" ")[0] }}</h5>
+                    <h3 class="day__number" (click)="navigateByView(objectDay.day)" [class]="isCurrentDay(objectDay.day) ?  'active' : ''">{{ objectDay.day.getDate() }}</h3>
+                    <span class="date__void">
+                        @for (appointment of appointmentsAllDay(objectDay.day, $index); track appointment.id) {
+                            <app-appointment-event
+                                [zIndex]="objectDay.zIndex"
+                                [allDay]="true"
+                                [appointment]="appointment"
+                                [date]="objectDay.day"
+                                [currentMoment]="objectDay.day"
+                                [width]="defineAmountOfDaysInRange(objectDay.day, appointment)"/> 
+                        }
+                    </span>
                 </div>
             }
         </div>
     </div>
-    <div class="content content--event" #contentContainer>
+    <div class="content content--event">
         <ul class="time">
             @for (hour of hours; track $index) {
                 <li class="time__item">
@@ -21,21 +31,21 @@
         </ul>
         <div class="event">
             <div class="week__content">
-                @for (customDate of customDates; track $index) {
-                    <div class="event__content">
+                @for (day of week; track $index) {
+                    <div class="event__content" #contentAllDay>
                         @if(group[$index]) {
                             <app-event-custom 
                                 [heightPerHours]="2.5"
                                 [unitOfMeasure]="'rem'"
                                 [group]="group[$index]"
-                                [dateSelected]="customDate"
+                                [dateSelected]="day"
                                 (positionCalculated)="scrollToMoment($event)"
                             ></app-event-custom>
                         } @else {
                             <app-event-custom 
                                 [heightPerHours]="2.5"
                                 [unitOfMeasure]="'rem'"
-                                [dateSelected]="customDate"
+                                [dateSelected]="day"
                                 (positionCalculated)="scrollToMoment($event)"
                             ></app-event-custom>
                         }

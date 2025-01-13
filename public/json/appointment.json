@@ -201,5 +201,77 @@
             "beforeStart": true,
             "afterEnd": true
         }
+    },
+    {
+        "id": 12,
+        "title": "Read with my daughter",
+        "start": "2025-01-13T13:00:00.000-05:00",
+        "end": "2025-01-19T15:00:00.000-05:00",
+        "color": "#ff5733",
+        "category": {
+            "id": 1,
+            "name": "Team Meeting",
+            "color": "#ff5733"
+        },
+        "allDay": true,
+        "draggable": true,
+        "resizable": {
+            "beforeStart": true,
+            "afterEnd": true
+        }
+    },
+    {
+        "id": 13,
+        "title": "Read with my sister",
+        "start": "2025-01-14T13:00:00.000-05:00",
+        "end": "2025-01-15T15:00:00.000-05:00",
+        "color": "#ff5733",
+        "category": {
+            "id": 1,
+            "name": "Team Meeting",
+            "color": "#ff5733"
+        },
+        "allDay": true,
+        "draggable": true,
+        "resizable": {
+            "beforeStart": true,
+            "afterEnd": true
+        }
+    },
+    {
+        "id": 14,
+        "title": "Read with my sister",
+        "start": "2025-01-15T13:00:00.000-05:00",
+        "end": "2025-01-15T15:00:00.000-05:00",
+        "color": "#ff5733",
+        "category": {
+            "id": 1,
+            "name": "Team Meeting",
+            "color": "#ff5733"
+        },
+        "allDay": true,
+        "draggable": true,
+        "resizable": {
+            "beforeStart": true,
+            "afterEnd": true
+        }
+    },
+    {
+        "id": 15,
+        "title": "Read with my sister",
+        "start": "2025-01-17T13:00:00.000-05:00",
+        "end": "2025-01-17T15:00:00.000-05:00",
+        "color": "#ff5733",
+        "category": {
+            "id": 1,
+            "name": "Team Meeting",
+            "color": "#ff5733"
+        },
+        "allDay": true,
+        "draggable": true,
+        "resizable": {
+            "beforeStart": true,
+            "afterEnd": true
+        }
     }
 ]

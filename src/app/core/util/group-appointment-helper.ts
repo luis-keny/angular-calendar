@@ -41,7 +41,7 @@ export class GroupAppointmentHelper {
             for(let date of dates) {
                 let group = groupAppointment.filter(a => this.dateHelper.isEqualDate(date, a.date));
                 if(group.length == 0) {
-                    const newGroup: GroupAppointmentEvent = { date, appointments: [] } 
+                    const newGroup: GroupAppointmentEvent = { date, appointments: [] }
                     if(this.dateHelper.isDateInRange(date, appointment.start, appointment.end)) {
                         newGroup.appointments.push(this.appointmentMapper.goFrom(appointment, date));
                     }
@@ -58,5 +58,9 @@ export class GroupAppointmentHelper {
         }
 
         return groupAppointment;
+    }
+
+    private existAppointmentAllDayInGroup(appointment: Appointment, group: GroupAppointmentEvent[]): boolean {
+        return group.some(groupA => groupA.appointments.some(a => a.id == appointment.id && a.allDay));
     }
 }

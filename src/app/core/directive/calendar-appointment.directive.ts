@@ -39,7 +39,7 @@ export class CalendarAppointmentDirective implements OnChanges {
     if(parseFloat(height) >= acceptableHeight) {
       this.render.setStyle(element,"flex-direction", "column");
     } else {
-      this.render.addClass(element,"appointment--line");
+      if(!this.appointment.allDay) this.render.addClass(element,"appointment--line");
     }
 
     if(parseFloat(height) <= ((acceptableHeight)/2)) {

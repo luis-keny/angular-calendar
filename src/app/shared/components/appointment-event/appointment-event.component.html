@@ -1,0 +1,17 @@
+<div class="event" 
+    appCalendarAppointment
+    [appointment]="appointment"
+    [heightPerHours]="heightPerHours"
+    [unitOfMeasure]="unitOfMeasure"
+    [currentMoment]="currentMoment"
+    [day]="date"
+    [class.all-day]="allDay"
+    [style]="'width:' + width + '; z-index:' + zIndex"
+    >
+    <span class="event__appointment--name">{{ appointment.title }}</span>
+    @if (!appointment.allDay) {
+        <span class="event__appointment--time">
+            <span>{{ getTime(appointment.timeRangeOfEvent.start) }}</span><span> - {{ getTime(appointment.timeRangeOfEvent.end) }}</span>
+        </span>
+    }
+</div>
