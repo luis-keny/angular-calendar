@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { EventCustomComponent } from '@shared/components/event-custom/event-custom.component';
@@ -7,13 +7,14 @@ import { DateHelper } from '@core/util/date-helper';
 import { GroupAppointmentEvent } from '@core/data/adapters/group-appointment-event';
 import { UrlDateService } from '@core/service/url-date.service';
 import { AppointmentService } from '@core/service/appointment.service';
+import { AppointmentEventComponent } from '@shared/components/appointment-event/appointment-event.component';
 
 @Component({
   selector: 'app-day-container',
   templateUrl: './day-container.component.html',
   styleUrl: './day-container.component.css',
   standalone: true,
-  imports: [EventCustomComponent],
+  imports: [EventCustomComponent, AppointmentEventComponent],
 })
 export class DayContainerComponent implements OnInit, OnDestroy {
   @ViewChild('contentContainer') contentContainer!: ElementRef<HTMLDivElement>;
@@ -60,5 +61,11 @@ export class DayContainerComponent implements OnInit, OnDestroy {
       top: top - container.offsetHeight / 2,
       behavior: 'smooth',
     });
+  }
+
+  public appointmentsAllDay() {
+    return this.group.appointments.filter(a => 
+      a.allDay && this.dateHelper.isDateInRange(this.customDate,a.timeRangeOfEvent.start, a.timeRangeOfEvent.end)
+    )
   }
 }

@@ -12,7 +12,7 @@ import { CalendarAppointmentDirective } from '@core/directive/calendar-appointme
 export class AppointmentEventComponent {
   @Input() heightPerHours: number = 0;
   @Input() unitOfMeasure: string = 'rem';
-  @Input({ required: true }) currentMoment: Date = new Date();
+  @Input() currentMoment: Date = new Date();
   @Input({ required: true }) appointment!: AppointmentEvent;
   @Input({ required: true }) date!: Date;
   @Input() allDay: boolean = false;

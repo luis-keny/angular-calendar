@@ -12,8 +12,7 @@
                                 [zIndex]="objectDay.zIndex"
                                 [allDay]="true"
                                 [appointment]="appointment"
-                                [date]="objectDay.day"
-                                [currentMoment]="objectDay.day"
+                                [date]="appointment.timeRangeOfEvent.end"
                                 [width]="defineAmountOfDaysInRange(objectDay.day, appointment)"/> 
                         }
                     </span>

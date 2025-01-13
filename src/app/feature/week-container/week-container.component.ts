@@ -66,7 +66,6 @@ export class WeekContainerComponent implements OnInit, AfterViewInit, OnDestroy 
   @HostListener('window:resize', ['$event'])
   private defineWidthOfContentAllDay() {
     this.widthContentAllDay = this.contentAllDay.nativeElement.offsetWidth.toString() + 'px';
-    console.log(this.widthContentAllDay);
   }
 
   private createHours() {
@@ -96,7 +95,10 @@ export class WeekContainerComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   public appointmentsAllDay(date: Date, index: number) {
-    return this.group[index].appointments.filter(a => a.allDay && this.dateHelper.isDateInRange(date,a.timeRangeOfEvent.start, a.timeRangeOfEvent.end))
+    const appointments = this.group[index].appointments.filter(a => 
+      a.allDay && this.dateHelper.isDateInRange(date,a.timeRangeOfEvent.start, a.timeRangeOfEvent.end)
+    )
+    return appointments
   }
 
   public defineAmountOfDaysInRange(dateChecked: Date, appointment: AppointmentEvent): string {
@@ -109,7 +111,6 @@ export class WeekContainerComponent implements OnInit, AfterViewInit, OnDestroy 
 
   public getZIndex(index: number): number {
     const zIndex = 7 - index;
-    console.log(zIndex)
     return zIndex;
   }
 }
