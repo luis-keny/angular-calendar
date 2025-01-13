@@ -46,6 +46,7 @@ export class WeekContainerComponent implements OnInit, AfterViewInit, OnDestroy 
     this.urlDateSub = this.urlDateSrv.getDateFromUrlObservable().subscribe(date => {
       const week = this.dateHelper.getWeekForDate(date);
       this.week = week;
+      this.objectWeek = []
       for(let i = 0; i < week.length; i++) {
         const day = week[i];
         this.objectWeek.push({day, zIndex: this.getZIndex(i)});
