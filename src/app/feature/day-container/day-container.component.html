@@ -5,14 +5,14 @@
             <h5 class="day__name" [class]="isCurrentDay(customDate) ? 'active' : ''">{{ customDate.toString().split(" ")[0] }}</h5>
             <h3 class="day__number" [class]="isCurrentDay(customDate) ?  'active' : ''">{{ customDate.getDate() }}</h3>
             <span class="date__void">
-                @for (appointment of appointmentsAllDay(); track $index) {
+                <!-- @for (appointment of appointmentsAllDay(); track $index) {
                     <app-appointment-event
                         [zIndex]="1"
                         [allDay]="true"
                         [appointment]="appointment"
                         [date]="appointment.timeRangeOfEvent.end"
                     />
-                }
+                } -->
             </span>
         </div>
     </div>

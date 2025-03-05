@@ -11,6 +11,7 @@ export class ModalService {
   private modalRef: ComponentRef<ModalCustomComponent> | null = null;
   private modalCloseSubject = new Subject<any>();
   private viewContainerRef!: ViewContainerRef;
+  private data: any;
 
   constructor(
     private environmentInjector: EnvironmentInjector
@@ -25,6 +26,8 @@ export class ModalService {
       environmentInjector: this.environmentInjector
     });
 
+    this.data = modalConfig.data ? modalConfig.data : null;
+
     const { component, title, alertMessage } = modalConfig;
     if (title) this.modalRef.instance.title = title;
     if (alertMessage !== undefined) this.modalRef.instance.alertMessage = alertMessage;
@@ -38,11 +41,15 @@ export class ModalService {
     return this.modalCloseSubject.asObservable();
   }
 
+  public getData(): any {
+    return this.data;
+  }
+
   public closeModal(result?: any) {
     if (this.modalRef) {
       this.modalRef.destroy();
       this.modalRef = null;
-      this.modalCloseSubject.next(result);
+      result != undefined ? this.modalCloseSubject.next(result) : null;
       this.modalCloseSubject.complete();
       this.modalCloseSubject = new Subject<any>();
     }

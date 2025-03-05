@@ -6,18 +6,23 @@
     <div class="form__row">
         <div class="form__group">
             <label for="startTime">Start time</label>
-            <input type="time" formControlName="startTime" id="startTime">
+            <!-- <input type="time" formControlName="startTime" id="startTime"> -->
+            <input type="datetime-local" formControlName="startTime" id="endTime">
         </div>
         <div class="form__group">
             <label for="endTime">End time</label>
-            <input type="time" formControlName="endTime" id="endTime">
+            <!-- <input type="time" formControlName="endTime" id="endTime"> -->
+            <input type="datetime-local" formControlName="endTime" id="endTime">
         </div>
         <div class="form__group">
             <input type="color" formControlName="color" id="color">
         </div>
     </div>
     <div class="btn__group">
-        <button class="btn btn__outline--primary">Cancel</button>
-        <button class="btn btn__flat--primary" type="submit" [disabled]="form.invalid">Add</button>
+        @if(isEdit) {
+            <button class="btn btn__outline--primary" (click)="deleteAppointment()">Delete</button>
+        }
+        <button class="btn btn__outline--primary" (click)="closeModal()">Cancel</button>
+        <button class="btn btn__flat--primary" type="submit" [disabled]="!form.valid">Add</button>
     </div>
 </form>

@@ -98,6 +98,7 @@ export class WeekContainerComponent implements OnInit, AfterViewInit, OnDestroy 
     const appointments = this.group[index].appointments.filter(a => 
       a.allDay && this.dateHelper.isDateInRange(date,a.timeRangeOfEvent.start, a.timeRangeOfEvent.end)
     )
+    console.log(appointments);
     return appointments
   }
 

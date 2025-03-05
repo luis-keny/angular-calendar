@@ -4,4 +4,5 @@ export interface ModalConfig {
     title?: string;
     component: Type<any>;
     alertMessage?: string;
+    data?: any;
 }

@@ -6,6 +6,8 @@ import { DateHelper } from '@core/util/date-helper';
 
 import { EventFormComponent } from '../event-form/event-form.component';
 import { AppointmentEventComponent } from '../appointment-event/appointment-event.component';
+import { Appointment } from '@core/data/model/appointment';
+import { AppointmentService } from '@core/service/appointment.service';
 
 
 @Component({
@@ -28,6 +30,7 @@ export class EventCustomComponent implements OnInit {
 
   constructor(
     private modalService: ModalService,
+    private appointmentSrv: AppointmentService,
   ) { }
 
   ngOnInit(): void {
@@ -66,17 +69,28 @@ export class EventCustomComponent implements OnInit {
     this.modalService.openModal({
       title: 'Add event',
       component: EventFormComponent,
+      data: {
+        date: this.dateSelected,
+      }
     }).subscribe(() => {
-      const appointmentEventString = localStorage.getItem('appointment-event');
-      
-      if(!appointmentEventString) return;
-      
-      const appointmentEvent: AppointmentEvent = JSON.parse(appointmentEventString);
-      appointmentEvent.timeRangeOfEvent.start = new Date(appointmentEvent.timeRangeOfEvent.start);
-      appointmentEvent.timeRangeOfEvent.end = new Date(appointmentEvent.timeRangeOfEvent.end);
-      this.group.appointments.push(appointmentEvent);
-      
-      localStorage.removeItem('appointment-event');
+      this.group = this.appointmentSrv.getOfDay(this.dateSelected);
+    })
+  }
+
+  public activeModalAppointment(appointment: AppointmentEvent) {
+    console.log(appointment);
+    this.modalService.openModal({
+      title: 'Add event',
+      component: EventFormComponent,
+      data: {
+        id: appointment.id,
+        title: appointment.title,
+        color: appointment.color ?? '#000000',
+        startTime: appointment.timeRangeOfEvent.start,
+        endTime: appointment.timeRangeOfEvent.end,
+      }
+    }).subscribe(() => {
+      this.group = this.appointmentSrv.getOfDay(this.dateSelected);
     })
   }
 }

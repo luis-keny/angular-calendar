@@ -9,6 +9,7 @@
     @for (appointment of group.appointments; track $index) {
         @if (!appointment.allDay) {
         <app-appointment-event
+            (click)="activeModalAppointment(appointment)"
             [appointment]="appointment"
             [heightPerHours]="heightPerHours"
             [unitOfMeasure]="unitOfMeasure"

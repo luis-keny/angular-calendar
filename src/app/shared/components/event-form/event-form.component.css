@@ -10,7 +10,8 @@ input[type="color"] {
 }
 
 input[type="time"],
-input[type="text"] {
+input[type="text"],
+input[type="datetime-local"] {
     padding: 8px;
     outline: none;
     border: 1px solid var(--color-900);
